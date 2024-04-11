@@ -1,5 +1,5 @@
-######## UI for situation global
-global_situation_ui <- function(id){
+######## UI for ENTREE RELATION
+enter_relation_ui <- function(id){
   ns <- NS(id)
   fluentPage(
     tags$style("
@@ -22,8 +22,8 @@ fichier <- "./data/tab1.xlsx"
 table <- readxl::read_excel(fichier)
 table <- as.data.frame(table)
 
-########### Server for situation global
-global_situation_server <- function(input, output, session){
+########### Server for ENTREE RELATION
+enter_relation_server <- function(input, output, session){
   
   output$table <- renderReactable({
     reactable(table, resizable = TRUE, selection = "single",

@@ -4,11 +4,7 @@ ui <- htmlTemplate("www/index.html",
   sidebarNavigation = 
     tagList(
        useShinyjs(),
-       DefaultButton.shinyInput("generate_report",
-                                text = "Generate Report",
-                                iconProps = list(iconName = "Download"),
-                                style = "background-color: #065BF9; color: #fff; display: block; margin: auto; top: 580px;"
-       ),
+       filterStatesRouter_ui("filterStates")
     ),
 
   ################## Content of Header Navigation

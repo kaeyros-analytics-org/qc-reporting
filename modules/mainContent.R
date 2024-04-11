@@ -14,9 +14,9 @@ mainContentRouter_server <- function(input, output, session, dataset) {
   ############# This UI is for ressources Layout Page
   ui_ressouces = Pivot(linkFormat = "tabs", 
                        PivotItem(headerText = "Situation Globale", global_situation_ui(session$ns("situation"))),
-                       PivotItem(headerText = "Situation Par réseau", Label("Hello 2")),
-                       PivotItem(headerText = "Entrées en relation", Label("Hello 3")),
-                       PivotItem(headerText = "CPIO", Label("Hello 4"))
+                       PivotItem(headerText = "Situation Par réseau", network_situation_ui(session$ns("network"))),
+                       PivotItem(headerText = "Entrées en relation", enter_relation_ui(session$ns("relation"))),
+                       PivotItem(headerText = "CPIO", cpio_ui(session$ns("cpio")))
   )
   ############# This UI is for Réemploies Layout Page
   ui_reemploie = Pivot(linkFormat = "tabs", 
@@ -75,6 +75,9 @@ mainContentRouter_server <- function(input, output, session, dataset) {
   })
   
   callModule(global_situation_server, id = "situation")
+  callModule(network_situation_server, id = "network")
+  callModule(enter_relation_server, id = "relation")
+  callModule(cpio_server, id = "cpio")
 }
 
 
