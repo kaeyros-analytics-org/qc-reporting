@@ -26,22 +26,15 @@ mainContentRouter_server <- function(input, output, session, dataset) {
                        PivotItem(id = "cpio", headerText = "CPIO", cpio_ui(session$ns("cpio")))
   )
   ############# This UI is for Réemploies Layout Page
-  ui_reemploie = Pivot(linkFormat = "tabs", 
-                       PivotItem(headerText = "Layout 1", Label("Hello 1")),
-                       PivotItem(headerText = "Layout 2", Label("Hello 2"))
-  )
+  ui_reemploie = reemploie_ui(session$ns("reemploie"))
   
   
   ############# This UI is for recouvrement Layout Page
-  ui_recouvrement = Pivot(linkFormat = "tabs", 
-                          PivotItem(headerText = "Layout 1", Label("Hello 1")),
-                          PivotItem(headerText = "Layout 2", Label("Hello 2"))
-  )
+  ui_recouvrement = recouvrement_ui(session$ns("recouvrement"))
+  
+  
   ############# This UI is for Production Layout Page
-  ui_production = Pivot(linkFormat = "tabs", 
-                        PivotItem(headerText = "Layout 1", Label("Hello 1")),
-                        PivotItem(headerText = "Layout 2", Label("Hello 2"))
-  )
+  ui_production = production_ui(session$ns("production"))
   
   observeEvent(dataset, 
     { print(paste("mon dataset: ", dataset))
@@ -85,6 +78,9 @@ mainContentRouter_server <- function(input, output, session, dataset) {
   callModule(network_situation_server, id = "network")
   callModule(enter_relation_server, id = "relation")
   callModule(cpio_server, id = "cpio")
+  callModule(reemploie_server, id = "reemploie")
+  callModule(recouvrement_server, id = "recouvrement")
+  callModule(production_server, id = "production")
 }
 
 

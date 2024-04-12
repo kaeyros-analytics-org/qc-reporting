@@ -6,6 +6,7 @@ filterStatesRouter_ui <- function(id) {
         uiOutput(ns("country")),
         uiOutput(ns("dateRange")),
         uiOutput(ns("timeAggregation")),
+        uiOutput(ns("eventTypeSelection")),
         ################### This button apply a filter
         uiOutput(ns("filter_button")),
         ############ This button is for generate and Download report in .docx format
@@ -34,6 +35,10 @@ filterStatesRouter_server <- function(input, output, session, page) {
       
       output$generate <- renderUI({
         ""
+      })
+      
+      output$eventTypeSelection <- renderUI({ 
+        ""  
       })
       
     }else{
@@ -102,8 +107,34 @@ filterStatesRouter_server <- function(input, output, session, page) {
         DefaultButton.shinyInput("generate_report",
                                  text = "Generate Report",
                                  iconProps = list(iconName = "Download"),
-                                 style = "background-color: #D00000; color: #fff; display: block; margin: auto; top: 300px;"
+                                 style = "background-color: #D00000; color: #fff; display: block; margin: auto; top: 200px;"
         )
+      })
+      
+      output$eventTypeSelection <- renderUI({
+          
+          tagList(
+            div(tabindex="0", `aria-label` = "Ereignistyp", class="sidebar-header", tags$a("Quel élément doit être générer? ")),
+            backendTooltip(span(`data-toggle`="tooltip", 
+                                `data-placement`="right", 
+                                `data-html` = "true",
+                                title = "Choississez les éléments qui vont être generer dans le document word.", 
+                                HTML('<i class="bi bi-question-circle"></i>'))),
+            pickerInput(session$ns("eventTypePicker"),
+                        label = NULL,
+                        choices = c("situation globale", "CPIO", "Situation réseau"),
+                        multiple = T,
+                        width = "100%",
+                        options = pickerOptions(
+                          actionsBox = TRUE,
+                          title = "Veuillez selectionner",
+                          selectAllText = '<span style="font-size: 0.8em;">Tous</span>',
+                          deselectAllText = '<span style="font-size: 0.8em;">Reset</span>'
+                        ),
+                        selected = c("situation globale", "CPIO", "Situation réseau"),
+                        inline = F)
+          )
+        
       })
       
       ########## End

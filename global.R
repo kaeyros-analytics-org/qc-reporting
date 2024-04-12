@@ -35,6 +35,9 @@ eval(parse('./modules/global_situation.R', encoding="UTF-8"))
 eval(parse('./modules/network_situation.R', encoding="UTF-8"))
 eval(parse('./modules/enter_relation.R', encoding="UTF-8"))
 eval(parse('./modules/cpio.R', encoding="UTF-8"))
+eval(parse('./modules/reemploie_page.R', encoding="UTF-8"))
+eval(parse('./modules/recouvrement_page.R', encoding="UTF-8"))
+eval(parse('./modules/production_page.R', encoding="UTF-8"))
 
 # visualization modules ###
 eval(parse('./modules/mainContent.R', encoding="UTF-8"))
