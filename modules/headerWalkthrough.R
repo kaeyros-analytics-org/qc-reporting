@@ -15,24 +15,24 @@ headerWalkthrough_server <- function(input,
                              dataset) {
   
   observeEvent(input$helpAllgemein, {
-    
+    print("Start Tour")
     if (dataset != "Home") {
       
       dataset <- dataset
       
       if (dataset == "Ressources") tabset = "global_situation"
-      if (dataset == "Réemploies") tabset = filterStates$GTD_tabSetPanel
-      if (dataset == "Recouvrement") tabset = filterStates$UCDP_GED_tabSetPanel
+      if (dataset == "Réemploies") tabset = "network_situation"
+      if (dataset == "Recouvrement") tabset = "network_situation"
       
       if (tabset == "global_situation") {
         df <- helpText %>% 
-          filter(item == "table")
+          filter(tabpanel == "global_situation")
         print(df)
         rintrojs::introjs(
           session,
           options = list(
-            "nextLabel" = "Weiter",
-            "prevLabel" = "Zurück",
+            "nextLabel" = "Suivant",
+            "prevLabel" = "Précédent",
             "skipLabel" = "Schließen",
             "doneLabel" = "Schließen",
             steps = data.frame(
@@ -41,14 +41,14 @@ headerWalkthrough_server <- function(input,
             )
           )
         )
-      } else if (tabset == "Réemploies") {
+      } else if (tabset == "network_situation") {
         df <- helpText %>% 
           filter(tabpanel == "network_situation")
         rintrojs::introjs(
           session,
           options = list(
-            "nextLabel" = "Weiter",
-            "prevLabel" = "Zurück",
+            "nextLabel" = "Suivant",
+            "prevLabel" = "Précédent",
             "skipLabel" = "Schließen",
             "doneLabel" = "Schließen",
             steps = data.frame(
