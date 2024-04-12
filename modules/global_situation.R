@@ -26,7 +26,7 @@ table <- as.data.frame(table)
 global_situation_server <- function(input, output, session){
   
   output$table <- renderReactable({
-    reactable(table, resizable = TRUE, selection = "single",
+    reactable(table, resizable = TRUE, selection = "single", searchable = TRUE,
               onClick = "select", pagination = TRUE, defaultPageSize = 11,
               #searchable = TRUE,
               wrap = FALSE,
@@ -51,7 +51,7 @@ global_situation_server <- function(input, output, session){
                   = list(background = "hsl(0, 0%, 96%)"),
                   borderColor = "grey"
                 ),
-                rowSelectedStyle = list(backgroundColor = "#0091E5",
+                rowSelectedStyle = list(backgroundColor = "#E80707",
                                         boxShadow = "inset 2px 0 0 0 #ffa62d")
                 
               )
@@ -63,8 +63,8 @@ global_situation_server <- function(input, output, session){
   output$plot <- renderPlotly({
     stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
     
-    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#05529B"))%>%
-      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#0077B6"))%>%
+    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#E80707"))%>%
+      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#A31818"))%>%
       layout(showlegend = F)
     fig <- fig %>%
       layout(

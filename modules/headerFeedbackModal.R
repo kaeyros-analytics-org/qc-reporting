@@ -24,7 +24,7 @@ headerFeedbackModal_server <- function(input,
   observeEvent(req(iconSelection == "Feedback / Disclaimer"), {
     showModal(modalDialog(
       easyClose = TRUE,
-      title = HTML('<p>Feedback</p><img src="./images/preview_logo.svg" height="50" style="position: absolute; top: 0; right: 0; margin: 0 10px;">'),
+      title = HTML('<p>Feedback</p><img src="./images/logo_preview.png" height="50" style="position: absolute; top: 0; right: 0; margin: 0 10px;">'),
       footer = modalButton("Schließen"),
       size = "l",
       includeMarkdown("./www/markdown/feedback.md")

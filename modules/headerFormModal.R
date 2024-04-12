@@ -28,7 +28,7 @@ headerFormModal_server <- function(input,
       modalXLargeDialog(
         size="xl",
         easyClose = TRUE,
-        title = HTML('<p>A propos de l\'application</p><img src="./images/preview_logo.svg" height="50" style="position: absolute; top: 0; right: 0; margin: 0 10px;" class="d-none d-sm-block">'),
+        title = HTML('<p>A propos de l\'application</p><img src="./images/logo_preview.png" height="50" style="position: absolute; top: 0; right: 0; margin: 0 10px;" class="d-none d-sm-block">'),
         footer = modalButton(HTML('<i class="bi bi-x-circle"></i> Schließen')),
         headerFormModal_form_ui(session$ns("formModal_form"))
       )
