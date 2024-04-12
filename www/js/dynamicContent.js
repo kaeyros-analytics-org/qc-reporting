@@ -50,7 +50,7 @@ $(document).ready(function(){
     let navItemText = $(this).children().html();
     let possibilities = ["Home", "Ressources", "Réemploies", "Recouvrement", "Production"];
     let iconChoices = ['class="bi bi-clipboard"', 'class="bi bi-chat-left-text"', 'class="bi bi-info-circle"', 'class="bi bi-file-earmark-text"', 'class="bi bi-question-circle"'];
-    let iconTranslator = ['Umfrage zur Applikation', 'Feedback / Disclaimer', 'Methodische Hinweise', "Datenquellen", 'Virtueller Rundgang'];
+    let iconTranslator = ["A propos de l'application", 'Feedback / Disclaimer', 'Methodische Hinweise', "Datenquellen", 'Virtueller Rundgang'];
 
     if (possibilities.indexOf(navItemText) !== -1) {
       Shiny.setInputValue("datasetNav", navItemText);
@@ -162,6 +162,6 @@ $(document).ready(function(){
   /* trigger model when icon clicked in allgemeines*/
   $(document).on("click", "#allgemeinesumfrage", function() {
      console.log("pups")
-     $("span[title='Umfrage zur Applikation']").trigger("click");  
+     $("span[title='A propos de l'application']").trigger("click");  
   });  
 });

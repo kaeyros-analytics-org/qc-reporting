@@ -94,7 +94,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
         DefaultButton.shinyInput(session$ns("filter_data"), class = "btn-filter",
                                  text = "Appliquer le filtre",
                                  iconProps = list(iconName = "Refresh"),
-                                 style = "background-color: #1EBBFF; color: #fff;"
+                                 style = "background-color: #DD1212; color: #fff;"
         )
       })
       
@@ -102,7 +102,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
         DefaultButton.shinyInput("generate_report",
                                  text = "Generate Report",
                                  iconProps = list(iconName = "Download"),
-                                 style = "background-color: #065BF9; color: #fff; display: block; margin: auto; top: 300px;"
+                                 style = "background-color: #D00000; color: #fff; display: block; margin: auto; top: 300px;"
         )
       })
       

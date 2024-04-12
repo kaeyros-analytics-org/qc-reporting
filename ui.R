@@ -9,7 +9,11 @@ ui <- htmlTemplate("www/index.html",
 
   ################## Content of Header Navigation
   headerNav = htmlTemplate("./www/htmlComponents/headerNav.html",
-                           slider = sliderInput("x", "Slider", 1, 100, 50)
+                           formModal = headerFormModal_ui(id = "formModal"),
+                           feedbackModal = headerFeedbackModal_ui(id = "feedbackModal"),
+                           methodsModal = headerMethodsModal_ui(id = "methodsModal"),
+                           dataModal = headerDataModal_ui(id = "data"),
+                           walkthrough = headerWalkthrough_ui(id = "walkthrough")
   ),
   
   ################# Content of Body display
