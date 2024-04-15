@@ -56,7 +56,7 @@ eval(parse('./modules/headerFormBoxControl.R', encoding='UTF-8'))
 eval(parse('./modules/headerFormRadioControl.R', encoding='UTF-8'))
 
 #generate report module
-#eval(parse('./modules/generate_report.R', encoding='UTF-8'))
+eval(parse('./modules/generate_report.R', encoding='UTF-8'))
 
 # Text template loading ####
 helpText <- read_xlsx("./www/templates/help_template.xlsx")
