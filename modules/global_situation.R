@@ -8,12 +8,17 @@ global_situation_ui <- function(id){
     div(class="container-fluid",
         div(class="row p-0 m-0", 
             div(class="col-lg-6 pr-1 pl-0", br(), reactableOutput(ns("table")),
-                TextField.shinyInput(
-                  ns("textInput"),
-                  label = "Ecrivez votre remarque",
-                  style = "border: 1px solid blue; border-radius: 10px;"
-                )),
-            div(class="col-lg-6 pl-1 pr-0", plotlyOutput(ns("plot"), width = "100px", height = "500px"))))
+                # TextField.shinyInput(
+                #   ns("textInput"),
+                #   label = "Ecrivez votre remarque",
+                #   style = "border: 1px solid blue; border-radius: 10px;"
+                # ),
+                textAreaInput("text",label="",placeholder = "Write your comments here")
+                #actionButton(ns("ok"), "save comments")
+                ),
+            div(class="col-lg-6 pl-1 pr-0", plotlyOutput(ns("plot"), width = "100px", height = "500px"))
+        )
+    )
   )
   
 }

@@ -2,6 +2,7 @@ filterStatesRouter_ui <- function(id) {
   
   ns <- NS(id)
   fluentPage(
+    shinyjs::useShinyjs(),
     div(id = "filterBox",
         uiOutput(ns("country")),
         uiOutput(ns("dateRange")),
@@ -99,11 +100,12 @@ filterStatesRouter_server <- function(input, output, session, page) {
       })
       
       output$generate <- renderUI({
-        DefaultButton.shinyInput("generate_report",
-                                 text = "Generate Report",
-                                 iconProps = list(iconName = "Download"),
-                                 style = "background-color: #D00000; color: #fff; display: block; margin: auto; top: 300px;"
-        )
+        downloadButton("generate_report", "Download as Word (.docx)")
+        # DefaultButton.shinyInput("generate_report",
+        #                          text = "Generate Report",
+        #                          iconProps = list(iconName = "Download"),
+        #                          style = "background-color: #D00000; color: #fff; display: block; margin: auto; top: 300px;"
+        # )
       })
       
       ########## End
