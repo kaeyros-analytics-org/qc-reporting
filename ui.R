@@ -3,6 +3,7 @@ ui <- htmlTemplate("www/index.html",
   ############## Content of sideBar navigation
   sidebarNavigation = 
     tagList(
+      introjsUI(),
        useShinyjs(),
        filterStatesRouter_ui("filterStates")
     ),

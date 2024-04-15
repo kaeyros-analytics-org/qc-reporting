@@ -6,14 +6,14 @@ global_situation_ui <- function(id){
                .fieldGroup-82{border: none;}
                "),
     div(class="container-fluid",
-        div(class="row p-0 m-0", 
-            div(class="col-lg-6 pr-1 pl-0", br(), reactableOutput(ns("table")),
+        div(class="row p-0 m-0",
+            div(class="col-lg-6 pr-1 pl-0", id = "basemap", br(), reactableOutput(ns("table")),
                 TextField.shinyInput(
                   ns("textInput"),
                   label = "Ecrivez votre remarque",
                   style = "border: 1px solid blue; border-radius: 10px;"
                 )),
-            div(class="col-lg-6 pl-1 pr-0", plotlyOutput(ns("plot"), width = "100px", height = "500px"))))
+            div(class="col-lg-6 pl-1 pr-0", id ="linechart", plotlyOutput(ns("plot"), width = "100px", height = "500px"))))
   )
   
 }
@@ -60,21 +60,31 @@ global_situation_server <- function(input, output, session){
   })
   
   
+  # Add a regression line
+  # plot_ly(x = x, y = y, type = 'scatter', mode = 'markers') %>%
+  #   add_trace(
+  #     x = x,
+  #     y = lm(y ~ x)$fitted.values,
+  #     mode = 'lines',
+  #     line = list(color = 'blue'),
+  #     name = 'Regression Line'
+  #   )
+  
   output$plot <- renderPlotly({
     stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
     
     fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#E80707"))%>%
       add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#A31818"))%>%
-      layout(showlegend = F)
+      layout(showlegend = T)
     fig <- fig %>%
       layout(
-        xaxis = list(zerolinecolor = '#ffff',
-                     zerolinewidth = 2,
-                     gridcolor = 'ffff'),
-        yaxis = list(zerolinecolor = '#ffff',
-                     zerolinewidth = 2,
-                     gridcolor = 'ffff'),
-        plot_bgcolor='#e5ecf6', width = 650)
+        xaxis = list(zerolinecolor = '#0083E3',
+                     zerolinewidth = 1,
+                     gridcolor = '#D9D9D9'),
+        yaxis = list(zerolinecolor = '#0083E3',
+                     zerolinewidth = 1,
+                     gridcolor = '#D9D9D9'),
+        plot_bgcolor='#fff', width = 650)
     
     
     fig

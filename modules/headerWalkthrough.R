@@ -2,7 +2,7 @@ headerWalkthrough_ui <- function(id) {
   
   ns <- NS(id)
   
-  out <- actionButton(ns("helpAllgemein"), label = HTML('<i class="bi bi-geo"></i>'))
+  out <- actionButton(ns("startTour"), label = HTML('<i class="bi bi-geo"></i>'))
   
   return(out)
   
@@ -12,17 +12,19 @@ headerWalkthrough_ui <- function(id) {
 headerWalkthrough_server <- function(input,
                              output,
                              session,
-                             dataset) {
+                             dataset, layout) {
   
-  observeEvent(input$helpAllgemein, {
+  observeEvent(input$startTour, {
     print("Start Tour")
+    
     if (dataset != "Home") {
       
-      dataset <- dataset
+      print(layout)
       
       if (dataset == "Ressources") tabset = "global_situation"
-      if (dataset == "Réemploies") tabset = "network_situation"
-      if (dataset == "Recouvrement") tabset = "network_situation"
+      if (dataset == "Réemploies") tabset = ""
+      if (dataset == "Recouvrement") tabset = ""
+      if (dataset == "Production") tabset = ""
       
       if (tabset == "global_situation") {
         df <- helpText %>% 
@@ -33,8 +35,8 @@ headerWalkthrough_server <- function(input,
           options = list(
             "nextLabel" = "Suivant",
             "prevLabel" = "Précédent",
-            "skipLabel" = "Schließen",
-            "doneLabel" = "Schließen",
+            "skipLabel" = "Passer",
+            "doneLabel" = "Ok",
             steps = data.frame(
               element = as.vector(df$container),
               intro = as.vector(df$text)
@@ -49,8 +51,8 @@ headerWalkthrough_server <- function(input,
           options = list(
             "nextLabel" = "Suivant",
             "prevLabel" = "Précédent",
-            "skipLabel" = "Schließen",
-            "doneLabel" = "Schließen",
+            "skipLabel" = "Passer",
+            "doneLabel" = "Ok",
             steps = data.frame(
               element = as.vector(df$container),
               intro = as.vector(df$text)
