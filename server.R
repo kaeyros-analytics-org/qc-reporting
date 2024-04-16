@@ -23,9 +23,6 @@ server <- function(input, output, session) {
   # callModule(headerDataModal_server, id = "dataModal", filterStates = input$datasetNav)
   ###Reactive value for comment
   
-  observeEvent(input$generate_report,{
-    shinyjs::runjs("document.getElementById('generate_report').click();")
-  })
   #reactive input for comment
   text1 <- reactive({
     if(is.null(input$text)) {
@@ -35,16 +32,17 @@ server <- function(input, output, session) {
     }
   })
   
+  tab1 <- readxl::read_excel(fichier)
+  tab2 <- readxl::read_excel(paste0(path,"/tab2.xlsx",sep=""), col_names = FALSE)
+  
   #generation of the report
   output$generate_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
     },
     content = function(file) {
-      tab1 <- readxl::read_excel(fichier)
-      tab2 <- readxl::read_excel(paste0(path,"/tab2.xlsx",sep=""), col_names = FALSE)
-      doc <- generate_report(tab1=tab1, tab2=tab2, text1=text1())
-      writeDoc(doc, file)
+      doc <- generate_report(tab1,tab2,text1())
+      print(doc, target = file)
     }
   )
 }

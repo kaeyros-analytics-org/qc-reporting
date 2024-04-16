@@ -101,6 +101,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
       
       output$generate <- renderUI({
         downloadButton("generate_report", "Download as Word (.docx)")
+        #actionButton("generate_report", "Download as Word (.docx)")
         # DefaultButton.shinyInput("generate_report",
         #                          text = "Generate Report",
         #                          iconProps = list(iconName = "Download"),

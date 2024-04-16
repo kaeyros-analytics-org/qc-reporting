@@ -27,6 +27,8 @@ library(rintrojs)
 library(shinyjs)
 library(dplyr)
 library(ReporteRs)
+library(officer)
+library(flextable)
 
 # load modules and function ####
 eval(parse('./modules/filter_section.R', encoding="UTF-8"))
