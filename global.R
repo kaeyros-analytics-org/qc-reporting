@@ -26,7 +26,7 @@ library(glue)
 library(rintrojs)
 library(shinyjs)
 library(dplyr)
-library(ReporteRs)
+#library(ReporteRs)
 library(officer)
 library(flextable)
 

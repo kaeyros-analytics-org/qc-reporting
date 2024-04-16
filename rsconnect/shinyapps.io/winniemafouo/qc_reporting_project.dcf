@@ -5,7 +5,7 @@ account: winniemafouo
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11759287
-bundleId: 8496178
+bundleId: 8499792
 url: https://winniemafouo.shinyapps.io/qc_reporting_project/
 version: 1
 asMultiple: FALSE

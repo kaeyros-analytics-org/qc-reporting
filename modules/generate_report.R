@@ -9,7 +9,6 @@ generate_report <- function(tab1,tab2,text1){
     padding.left = 4, padding.right = 4)
   
   doc <- read_docx(path="./data/Rapport_hebdo.docx")
-  options('ReporteRs-fontsize'=11, 'ReporteRs-default-font'='Trebuchet MS')
   doc <- body_add_par(doc,"La situation hebdomadaire du réseau First Bank à travers les agrégats repris comme suit : ")
   doc <- body_add_par(doc,"   ✓  Les ressources")
   doc <- body_add_par(doc,"   ✓  Les réemplois ")

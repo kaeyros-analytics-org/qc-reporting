@@ -33,7 +33,13 @@ server <- function(input, output, session) {
   })
   
   tab1 <- readxl::read_excel(fichier)
-  tab2 <- readxl::read_excel(paste0(path,"/tab2.xlsx",sep=""), col_names = FALSE)
+  tab2 <- readxl::read_excel(paste0(path,"/tab2.xlsx",sep=""))
+  tab2 <- tab2 %>% dplyr::rename(`18/01/2024`=`18/01/2024 ...2`) %>%
+    dplyr::rename(`25/01/2024`=`25/01/2024 ...3`) %>%
+    dplyr::rename(`Variation`=`Variation ...4`) %>%
+    dplyr::rename(`18/01/2024 `=`18/01/2024 ...6`) %>%
+    dplyr::rename(`25/01/2024 `=`25/01/2024 ...7`) %>%
+    dplyr::rename(`Variation `=`Variation ...8`)
   
   #generation of the report
   output$generate_report <- downloadHandler(
