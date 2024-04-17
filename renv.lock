@@ -187,6 +187,48 @@
       ],
       "Hash": "5ea2700d21e038ace58269ecdbeb9ec0"
     },
+    "ReporteRs": {
+      "Package": "ReporteRs",
+      "Version": "0.8.11.001",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "ReporteRs",
+      "RemoteUsername": "davidgohel",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "b364ad72d3578379fecf972a7cf16f2bcabc80b3",
+      "Requirements": [
+        "R",
+        "ReporteRsjars",
+        "gdtools",
+        "grDevices",
+        "htmltools",
+        "knitr",
+        "png",
+        "rJava",
+        "rvg",
+        "shiny",
+        "utils",
+        "xml2"
+      ],
+      "Hash": "cbe3f6e10b0b35643314058a213ac324"
+    },
+    "ReporteRsjars": {
+      "Package": "ReporteRsjars",
+      "Version": "0.0.5",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "ReporteRsjars",
+      "RemoteUsername": "davidgohel",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "0adc2caebfc419a67070a2c9082ceaf18ca696a1",
+      "Requirements": [
+        "R",
+        "rJava"
+      ],
+      "Hash": "538db94b1c65df90da4c37f7be8c6117"
+    },
     "anytime": {
       "Package": "anytime",
       "Version": "0.3.9",
@@ -1425,6 +1467,22 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "96710351d642b70e8f02ddeb237c46a7"
+    },
+    "rvg": {
+      "Package": "rvg",
+      "Version": "0.3.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "gdtools",
+        "grDevices",
+        "officer",
+        "rlang",
+        "xml2"
+      ],
+      "Hash": "8f7a79f622774ff95d60b74e486d99ba"
     },
     "s2": {
       "Package": "s2",

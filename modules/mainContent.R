@@ -18,7 +18,7 @@ mainContentRouter_ui <- function(id) {
 
 mainContentRouter_server <- function(input, output, session, dataset) {
   ############# This UI is for ressources Layout Page
-  ui_ressouces = Pivot(linkFormat = "tabs", 
+  ui_ressouces = Pivot(linkFormat = "tabs",
                        onLinkClick = setClickedId(session$ns("ressources_tabs")),
                        PivotItem(id = "global_situation", headerText = "Situation Globale", global_situation_ui(session$ns("situation"))),
                        PivotItem(id = "network_situation", headerText = "Situation Par réseau", network_situation_ui(session$ns("network"))),

@@ -24,7 +24,9 @@ library(shinyjs)
 library(openxlsx)
 library(glue)
 library(rintrojs)
-
+library(shinyjs)
+library(dplyr)
+library(ReporteRs)
 
 # load modules and function ####
 eval(parse('./modules/filter_section.R', encoding="UTF-8"))
@@ -56,7 +58,8 @@ eval(parse('./modules/headerFormTextControl.R', encoding='UTF-8'))
 eval(parse('./modules/headerFormBoxControl.R', encoding='UTF-8'))
 eval(parse('./modules/headerFormRadioControl.R', encoding='UTF-8'))
 
-
+#generate report module
+eval(parse('./modules/generate_report.R', encoding='UTF-8'))
 
 # Text template loading ####
 helpText <- read_xlsx("./www/templates/help_template.xlsx")
@@ -84,3 +87,7 @@ modalXLargeDialog <- function(..., title = NULL, footer = modalButton("Dismiss")
       tags$script("$('#shiny-modal').modal().focus();")
   )
 }
+
+#import data
+wd <- getwd()
+path <- paste0(wd,"/data")

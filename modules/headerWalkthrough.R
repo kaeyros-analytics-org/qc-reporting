@@ -12,14 +12,16 @@ headerWalkthrough_ui <- function(id) {
 headerWalkthrough_server <- function(input,
                              output,
                              session,
-                             dataset, layout) {
+                             filterStates) {
   
   observeEvent(input$startTour, {
     print("Start Tour")
     
-    if (dataset != "Home") {
+    if (filterStates$dataNavi$dataset != "Home") {
       
-      print(layout)
+      dataset <- filterStates$dataNavi$dataset
+      
+      print(dataset)
       
       if (dataset == "Ressources") tabset = "global_situation"
       if (dataset == "Réemploies") tabset = ""
@@ -60,6 +62,24 @@ headerWalkthrough_server <- function(input,
           )
         )
       }
+    } else if (filterStates$dataNavi$dataset == "Home") {
+      df <- helpText %>% 
+        filter(navtab == "allgemein") 
+      rintrojs::introjs(
+        session,
+        options = list(
+          "nextLabel" = "Suivant",
+          "prevLabel" = "Précédent",
+          "skipLabel" = "Passer",
+          "doneLabel" = "Ok",
+          steps = data.frame(
+            element = as.vector(df$container),
+            intro = as.vector(df$text)
+          )
+        )
+      )
     }
+    
+    
   })
 }

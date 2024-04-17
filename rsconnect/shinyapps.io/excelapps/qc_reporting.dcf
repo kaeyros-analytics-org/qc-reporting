@@ -5,7 +5,7 @@ account: excelapps
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11740742
-bundleId:
+bundleId: 8496594
 url: https://excelapps.shinyapps.io/qc_reporting/
 version: 1
 asMultiple: FALSE
