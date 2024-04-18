@@ -18,6 +18,7 @@ tab1<- bg(tab1, j=c(7,8),bg = "#ffffff")
 tab1 <- bg(tab1, i = ~ `Variation `<0, 
    j = ~ `Variation `, 
    bg="red")
+tab1 <- align(tab1, align = "right", part = "all")
 
 
 text_style <- fp_text(font.size = 11,font.family = "Trebuchet MS")

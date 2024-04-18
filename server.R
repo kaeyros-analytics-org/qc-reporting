@@ -21,17 +21,29 @@ server <- function(input, output, session) {
   
   # callModule(headerMethodsModal_server, id = "methodsModal", filterStates = input$datasetNav)
   # callModule(headerDataModal_server, id = "dataModal", filterStates = input$datasetNav)
-  ###Reactive value for comment
   
+  #disable comment when we click on save
+  observeEvent(input$save,{
+    shinyjs::disable("text1")
+  })
+  
+  #enable comment when we click on edit
+  observeEvent(input$edit,{
+    shinyjs::enable("text1")
+  })
+  
+  output$text1 <- renderUI({
+    textAreaInput("text",label="",placeholder = "Write your comments here",height="380px",width="600px")
+  })
   #reactive input for comment
-  text1 <- reactive({
+  text1 <- eventReactive(input$save,{
     if(is.null(input$text)) {
       return(" ")
     } else {
       input$text
     }
   })
-  
+    
   tab1 <- readxl::read_excel(fichier)
   tab2 <- readxl::read_excel(paste0(path,"/tab2.xlsx",sep=""))
   tab2 <- tab2 %>% dplyr::rename(`18/01/2024`=`18/01/2024 ...2`) %>%

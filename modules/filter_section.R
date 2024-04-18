@@ -9,6 +9,7 @@ filterStatesRouter_ui <- function(id) {
         uiOutput(ns("timeAggregation")),
         ################### This button apply a filter
         uiOutput(ns("filter_button")),
+        tags$br(),
         ############ This button is for generate and Download report in .docx format
         uiOutput(ns("generate"))
     )
@@ -100,7 +101,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
       })
       
       output$generate <- renderUI({
-        downloadButton("generate_report", "Download as Word (.docx)")
+        downloadButton("generate_report", "Generate report")
         #actionButton("generate_report", "Download as Word (.docx)")
         # DefaultButton.shinyInput("generate_report",
         #                          text = "Generate Report",

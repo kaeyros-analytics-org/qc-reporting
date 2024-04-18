@@ -1,23 +1,41 @@
 ######## UI for situation global
 global_situation_ui <- function(id){
   ns <- NS(id)
+  shinyjs::useShinyjs()
   fluentPage(
     tags$style("
                .fieldGroup-82{border: none;}
                "),
     div(class="container-fluid",
-        div(class="row p-0 m-0", 
-            div(class="col-lg-6 pr-1 pl-0", br(), reactableOutput(ns("table")),
-                # TextField.shinyInput(
-                #   ns("textInput"),
-                #   label = "Ecrivez votre remarque",
-                #   style = "border: 1px solid blue; border-radius: 10px;"
-                # ),
-                textAreaInput("text",label="",placeholder = "Write your comments here")
-                #actionButton(ns("ok"), "save comments")
-                ),
-            div(class="col-lg-6 pl-1 pr-0", plotlyOutput(ns("plot"), width = "100px", height = "500px"))
+        # div(class="row p-0 m-0", 
+        #     div(class="col-lg-6 pr-1 pl-0", 
+        #         br(), 
+        #         reactableOutput(ns("table")),
+        #         uiOutput("text1"),
+        #         #textAreaInput("text",label="",placeholder = "Write your comments here"),
+        #         ActionButton.shinyInput("ok", "save comments"),
+        #         actionButton("edit", "Edit comments")
+        #         )#,
+        #     #div(class="col-lg-6 pl-1 pr-0", plotlyOutput(ns("plot"), width = "100px", height = "500px"))
+        # ),
+        tags$br(),
+        reactableOutput(ns("table")),
+        div(style="display: flex;",
+          div(class="col-lg-6 pr-1 pl-0",
+              uiOutput("text1"),
+            div(style="display: flex; justify-content: flex-end;",
+              div(style = "margin-right: 10px;",
+                ActionButton.shinyInput("save", "Save",style = "background-color: #3392c5;
+                                        height:45px;color: #000; font-weight: bold;width:50px")),
+              actionButton("edit", "Edit",style = "background-color: #3392c5;
+                           height:45px;color: #000; font-weight: bold;width:50px")
+            )
+            ),
+          div(class="col-lg-6 pl-1 pr-0",
+            plotlyOutput(ns("plot"), width = "100px", height = "500px")
+          )
         ),
+        tags$br(),
         div(style="display: flex; font-weight: bold;",
             div(style="margin-left:300px",
                 HTML("Retail banking")),
@@ -50,8 +68,8 @@ table2 <- table2 %>% dplyr::rename(`18/01/2024`=`18/01/2024 ...2`) %>%
 global_situation_server <- function(input, output, session){
   
   output$table <- renderReactable({
-    reactable(table, resizable = TRUE, selection = "single", searchable = TRUE,
-              onClick = "select", pagination = TRUE, defaultPageSize = 11,
+    reactable(table, resizable = TRUE, selection = "single", #searchable = TRUE,
+              onClick = "select", pagination = FALSE,
               #searchable = TRUE,
               wrap = FALSE,
               striped = FALSE,
@@ -59,7 +77,7 @@ global_situation_server <- function(input, output, session){
               bordered = TRUE,
               defaultColDef = colDef(
                 header = function(value) gsub(".", " ", value, fixed = TRUE),
-                align = "left",
+                align = "right",
                 headerStyle = list(background = "#f0f5f9")
               ),
               theme = reactableTheme(
@@ -75,7 +93,7 @@ global_situation_server <- function(input, output, session){
                   = list(background = "hsl(0, 0%, 96%)"),
                   borderColor = "grey"
                 ),
-                rowSelectedStyle = list(backgroundColor = "#E80707",
+                rowSelectedStyle = list(backgroundColor = "#3392c5",
                                         boxShadow = "inset 2px 0 0 0 #ffa62d")
                 
               )
@@ -106,7 +124,7 @@ global_situation_server <- function(input, output, session){
   
   output$table2 <- renderReactable({
     reactable(table2, resizable = TRUE, selection = "single", #searchable = TRUE,
-              onClick = "select", pagination = TRUE, defaultPageSize = 11,
+              onClick = "select", pagination = FALSE, 
               #searchable = TRUE,
               wrap = FALSE,
               striped = FALSE,
@@ -114,7 +132,7 @@ global_situation_server <- function(input, output, session){
               bordered = TRUE,
               defaultColDef = colDef(
                 header = function(value) gsub(".", " ", value, fixed = TRUE),
-                align = "left",
+                align = "right",
                 headerStyle = list(background = "#f0f5f9")
               ),
               theme = reactableTheme(
