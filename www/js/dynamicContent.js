@@ -49,11 +49,13 @@ $(document).ready(function(){
   $('li.nav-item').click(function(e) {
     let navItemText = $(this).children().html();
     let possibilities = ["Home", "Ressources", "Réemploies", "Recouvrement", "Production"];
+    let nav_for_filter = ["Ressources", "Réemploies", "Recouvrement", "Production"];
     let iconChoices = ['class="bi bi-clipboard"', 'class="bi bi-chat-left-text"', 'class="bi bi-info-circle"', 'class="bi bi-file-earmark-text"', 'class="bi bi-question-circle"'];
     let iconTranslator = ["A propos de l'application", 'Feedback / Disclaimer', 'Methodische Hinweise', "Datenquellen", 'Virtueller Rundgang'];
 
     if (possibilities.indexOf(navItemText) !== -1) {
       Shiny.setInputValue("datasetNav", navItemText);
+      Shiny.setInputValue("allNav", nav_for_filter);
   	  $('li.nav-item.active').removeClass('active');
   	  $(this).addClass('active');
 

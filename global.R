@@ -27,6 +27,8 @@ library(shinyjs)
 library(dplyr)
 #library(odbc)
 library(RMySQL)
+library(officer)
+library(flextable)
 
 # load modules and function ####
 eval(parse('./modules/filter_section.R', encoding="UTF-8"))
@@ -65,7 +67,7 @@ eval(parse('./modules/generate_report.R', encoding='UTF-8'))
 eval(parse('./modules/data_management.R', encoding='UTF-8'))
 
 # Text template loading ####
-helpText <- read_xlsx("./www/templates/help_template.xlsx")
+helpText <- readxl::read_xlsx("./www/templates/help_template.xlsx")
 
 
 # modalXLargeDialog ####

@@ -9,7 +9,8 @@ filterStatesRouter_ui <- function(id) {
         uiOutput(ns("timeAggregation")),
         uiOutput(ns("eventTypeSelection")),
         ################### This button apply a filter
-        uiOutput(ns("filter_button")), br(),
+        uiOutput(ns("filter_button")),
+        tags$br(),
         ############ This button is for generate and Download report in .docx format
         uiOutput(ns("generate"))
     )
@@ -17,10 +18,11 @@ filterStatesRouter_ui <- function(id) {
   
 }
 
-filterStatesRouter_server <- function(input, output, session, page) {
+filterStatesRouter_server <- function(input, output, session, filterStates) {
   
-  observeEvent(page, {
-    if(page == "Home"){ ########## We don't need to display filter when we are at home page.
+  observeEvent(filterStates$dataNavi$dataset, {
+    if(filterStates$dataNavi$dataset == "Home"){ ########## We don't need to display filter when we are at home page.
+      
       output$dateRange <- renderUI({
         "Quit home to see filter."
       })
@@ -97,7 +99,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
       })
       
       output$filter_button <- renderUI({
-        DefaultButton.shinyInput(session$ns("filter_data"), class = "btn-filter",
+        DefaultButton.shinyInput("filter_data", class = "btn-filter",
                                  text = "Appliquer le filtre",
                                  iconProps = list(iconName = "Refresh"),
                                  style = "background-color: #0093FF; color: #fff;"
@@ -105,9 +107,9 @@ filterStatesRouter_server <- function(input, output, session, page) {
       })
       
       output$generate <- renderUI({
-
         downloadButton("generate_report", "Download as.docx)",
                        style = "background-color: #0093FF; color: #fff; display: block; margin: auto; width: 70%;")
+        #actionButton("generate_report", "Download as Word (.docx)")
         # DefaultButton.shinyInput("generate_report",
         #                          text = "Generate Report",
         #                          iconProps = list(iconName = "Download"),
@@ -126,7 +128,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
                                 HTML('<i class="bi bi-question-circle"></i>'))),
             pickerInput(session$ns("eventTypePicker"),
                         label = NULL,
-                        choices = c("situation globale", "CPIO", "Situation réseau"),
+                        choices = paste0(filterStates$allDataset, " - ", c("situation globale", "CPIO", "Situation réseau")),
                         multiple = T,
                         width = "100%",
                         options = pickerOptions(
@@ -135,7 +137,7 @@ filterStatesRouter_server <- function(input, output, session, page) {
                           selectAllText = '<span style="font-size: 0.8em;">Tous</span>',
                           deselectAllText = '<span style="font-size: 0.8em;">Reset</span>'
                         ),
-                        selected = c("situation globale", "CPIO", "Situation réseau"),
+                        selected = c("situation globale", "CPIO"),
                         inline = F)
           )
         
