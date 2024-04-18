@@ -38,7 +38,7 @@ server <- function(input, output, session) {
   # callModule(headerDataModal_server, id = "dataModal", filterStates = input$datasetNav)
   ###Reactive value for comment
   
-  # observeEvent(input$generate_report,{
+  # observeEvent(input$generate_report, {
   #   shinyjs::runjs("document.getElementById('generate_report').click();")
   # })
   

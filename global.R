@@ -13,7 +13,6 @@ library(shinyWidgets)
 library(stringr)
 library(leaflet)
 library(plotly)
-library(dplyr)
 library(DT)
 library(shinycssloaders)
 library(DBI)
@@ -26,7 +25,8 @@ library(glue)
 library(rintrojs)
 library(shinyjs)
 library(dplyr)
-library(ReporteRs)
+#library(odbc)
+library(RMySQL)
 
 # load modules and function ####
 eval(parse('./modules/filter_section.R', encoding="UTF-8"))
@@ -60,6 +60,9 @@ eval(parse('./modules/headerFormRadioControl.R', encoding='UTF-8'))
 
 #generate report module
 eval(parse('./modules/generate_report.R', encoding='UTF-8'))
+
+# manage SQL data
+eval(parse('./modules/data_management.R', encoding='UTF-8'))
 
 # Text template loading ####
 helpText <- read_xlsx("./www/templates/help_template.xlsx")

@@ -1,5 +1,0 @@
-Dans les différentes tables, les id et les dates doivent obligatoirement se suivrent.
-on comment au 1/1/2024 et on fini au 1/4/2024
-
-les attributs retails et corporates banking sont des montants financier et sont
-toujours >= 1000. Aucun n'ordre n'est imposer.
