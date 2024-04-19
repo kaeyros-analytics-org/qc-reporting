@@ -4,15 +4,6 @@ server <- function(input, output, session) {
   ################### This code change the Tab Head Layout
   Sys.sleep(1.5)
   
-  filterStates <- reactiveValues(
-    # dataset
-    dataNavi = list(dataset = "Home"),
-    allDataset = NULL,
-    allSubItem = NULL,
-    whoAsPrint = NULL,
-    filterButton = NULL
-  )
-  
   ######### Set the first active page Layout
   callModule(mainContentRouter_server, id = "mainContentRouter", dataset = "Home")
   observeEvent(input$datasetNav, {
@@ -22,13 +13,14 @@ server <- function(input, output, session) {
   
   ########## Call filter server module
   callModule(filterStatesRouter_server, id = "filterStates", filterStates = filterStates)
+  
   ####### Call server module for start tour.
   callModule(headerWalkthrough_server, id = "walkthrough", filterStates = filterStates)
   
     observeEvent(input$datasetNav,
     {
       filterStates$allDataset <- input$allNav
-      print(input$ressources_tabs)
+      filterStates$whoAsPrint <- c("Situation Globale", "Situation Par réseau", "Entrées en relation", "CPIO")
       filterStates$dataNavi$dataset <- input$datasetNav
       #message(filterStates[[paste0(filterStates$dataNavi$dataset, "_tabSetPanel")]])
     })
@@ -38,9 +30,6 @@ server <- function(input, output, session) {
     callModule(headerFormModal_server, id = "formModal", iconSelection = input$iconSelection)
     callModule(headerFeedbackModal_server, id = "feedbackModal", iconSelection = input$iconSelection)
   })
-  
-  # callModule(headerMethodsModal_server, id = "methodsModal", filterStates = input$datasetNav)
-  # callModule(headerDataModal_server, id = "dataModal", filterStates = input$datasetNav)
   
   #disable comment when we click on save
   observeEvent(input$save,{
@@ -73,8 +62,15 @@ server <- function(input, output, session) {
     dplyr::rename(`25/01/2024 `=`25/01/2024 ...7`) %>%
     dplyr::rename(`Variation `=`Variation ...8`)
   
+  ################ Apply filter woth sidebar DATA
   observeEvent(input$filter_data, {
-    print("je filtre")
+    print("Apply the filter")
+    filterStates$countrySelected <- input$countryInput
+    filterStates$first_date <- input$dateToEvaluate
+    filterStates$aggregateRange <- input$timeAggregationInput
+    filterStates$date_start <- input$dateRangeInput[1]
+    filterStates$date_end <- input$dateRangeInput[2]
+    #filterStates$whoAsPrint <- input$eventTypePicker
     filterStates$filterButton <- TRUE
   })
   

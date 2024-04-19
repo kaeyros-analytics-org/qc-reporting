@@ -40,8 +40,7 @@ global_situation_ui <- function(id){
   
 }
 
-wd <- getwd()
-path <- paste0(wd,"/data")
+path <- paste0(getwd(),"/data")
 fichier <- "./data/tab1.xlsx"
 table <- readxl::read_excel(fichier)
 #table <- as.data.frame(table)
@@ -59,7 +58,7 @@ table2 <- table2 %>% dplyr::rename(`18/01/2024`=`18/01/2024 ...2`) %>%
 global_situation_server <- function(input, output, session){
   
   output$table <- renderReactable({
-    reactable(table, resizable = TRUE, selection = "single", #searchable = TRUE,
+    reactable(global_situation_tab_1(), resizable = TRUE, selection = "single", #searchable = TRUE,
               onClick = "select", pagination = FALSE,
               #searchable = TRUE,
               wrap = FALSE,
@@ -93,21 +92,11 @@ global_situation_server <- function(input, output, session){
   })
   
   
-  # Add a regression line
-  # plot_ly(x = x, y = y, type = 'scatter', mode = 'markers') %>%
-  #   add_trace(
-  #     x = x,
-  #     y = lm(y ~ x)$fitted.values,
-  #     mode = 'lines',
-  #     line = list(color = 'blue'),
-  #     name = 'Regression Line'
-  #   )
-  
   output$plot <- renderPlotly({
     stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
     
-    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#E80707"))%>%
-      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#A31818"))%>%
+    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#0083E3"))%>%
+      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#0283A3"))%>%
       layout(showlegend = T)
     fig <- fig %>%
       layout(
@@ -157,24 +146,4 @@ global_situation_server <- function(input, output, session){
     ) # End Reactable
   })
   
-  
-  output$plot <- renderPlotly({
-    stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
-    
-    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#E80707"))%>%
-      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#A31818"))%>%
-      layout(showlegend = F)
-    fig <- fig %>%
-      layout(
-        xaxis = list(zerolinecolor = '#ffff',
-                     zerolinewidth = 2,
-                     gridcolor = 'ffff'),
-        yaxis = list(zerolinecolor = '#ffff',
-                     zerolinewidth = 2,
-                     gridcolor = 'ffff'),
-        plot_bgcolor='#e5ecf6', width = 650)
-    
-    
-    fig
-  })
 }
