@@ -32,7 +32,7 @@ generate_report <- function(tab1,tab2,text1){
   doc <- body_add_fpar(doc, fpar( ftext("  I.     LES RESSOURCES", prop = text_style),
                                   fp_p = fp_par(text.align = "justify",line_spacing = 1.5,) ))
   doc <- body_add_fpar(doc, fpar( ftext("    A- Situaton Globale", prop = text_style), fp_p = par_style ) )
-  doc <- body_add_fpar(doc, fpar( ftext(text1, prop = text_style), fp_p = par_style ) )
+  doc <- body_add_fpar(doc, fpar( ftext(text1, prop = text_style), fp_p = par_style ))
   doc <- body_add_par(doc, " ")
   doc <- body_add_flextable(doc,set_table_properties(tab1, width = 1, layout = "autofit"))
   doc <- body_add_par(doc," ")

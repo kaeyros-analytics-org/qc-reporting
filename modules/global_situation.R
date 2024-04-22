@@ -9,7 +9,7 @@ global_situation_ui <- function(id){
     div(class="container-fluid",
         tags$br(),
         div( id = "",
-          reactableOutput(ns("table")),
+          reactableOutput(ns("global_situation_tab_1")),
         ),
         div(style="display: flex;",
           div(class="col-lg-6 pr-1 pl-0",
@@ -23,7 +23,7 @@ global_situation_ui <- function(id){
             )
             ),
           div(class="col-lg-6 pl-1 pr-0", id = "linechart",
-            plotlyOutput(ns("plot"), width = "100px", height = "500px")
+            plotlyOutput(ns("plot_1"), width = "100px", height = "500px")
           )
         ),
         tags$br(),
@@ -34,32 +34,17 @@ global_situation_ui <- function(id){
                 HTML("Corporate banking"))
             ),
         tags$br(),
-        reactableOutput(ns("table2"))
+        reactableOutput(ns("global_situation_tab_2"))
     )
   )
   
 }
 
-wd <- getwd()
-path <- paste0(wd,"/data")
-fichier <- "./data/tab1.xlsx"
-table <- readxl::read_excel(fichier)
-#table <- as.data.frame(table)
-table2 <- readxl::read_excel(paste(path,"/tab2.xlsx",sep=""))#, col_names = FALSE
-table2 <- table2 %>% dplyr::rename(`18/01/2024`=`18/01/2024 ...2`) %>%
-  dplyr::rename(`25/01/2024`=`25/01/2024 ...3`) %>%
-  dplyr::rename(`Variation`=`Variation ...4`) %>%
-  dplyr::rename(`18/01/2024 `=`18/01/2024 ...6`) %>%
-  dplyr::rename(`25/01/2024 `=`25/01/2024 ...7`) %>%
-  dplyr::rename(`Variation `=`Variation ...8`)
-#table2 <- as.data.frame(table2)
-#colnames(table2) <- as.character(table2[1, ])
-
 ########### Server for situation global
 global_situation_server <- function(input, output, session){
   
-  output$table <- renderReactable({
-    reactable(table, resizable = TRUE, selection = "single", #searchable = TRUE,
+  output$global_situation_tab_1 <- renderReactable({
+    reactable(global_situation_tab_1(), resizable = TRUE, selection = "single", #searchable = TRUE,
               onClick = "select", pagination = FALSE,
               #searchable = TRUE,
               wrap = FALSE,
@@ -93,21 +78,11 @@ global_situation_server <- function(input, output, session){
   })
   
   
-  # Add a regression line
-  # plot_ly(x = x, y = y, type = 'scatter', mode = 'markers') %>%
-  #   add_trace(
-  #     x = x,
-  #     y = lm(y ~ x)$fitted.values,
-  #     mode = 'lines',
-  #     line = list(color = 'blue'),
-  #     name = 'Regression Line'
-  #   )
-  
-  output$plot <- renderPlotly({
+  output$plot_1 <- renderPlotly({
     stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
     
-    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#E80707"))%>%
-      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#A31818"))%>%
+    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#0083E3"))%>%
+      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#0283A3"))%>%
       layout(showlegend = T)
     fig <- fig %>%
       layout(
@@ -123,8 +98,8 @@ global_situation_server <- function(input, output, session){
     fig
   })
   
-  output$table2 <- renderReactable({
-    reactable(table2, resizable = TRUE, selection = "single", #searchable = TRUE,
+  output$global_situation_tab_2 <- renderReactable({
+    reactable(global_situation_tab_1(), resizable = TRUE, selection = "single", #searchable = TRUE,
               onClick = "select", pagination = FALSE, 
               #searchable = TRUE,
               wrap = FALSE,
@@ -157,24 +132,4 @@ global_situation_server <- function(input, output, session){
     ) # End Reactable
   })
   
-  
-  output$plot <- renderPlotly({
-    stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
-    
-    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#E80707"))%>%
-      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#A31818"))%>%
-      layout(showlegend = F)
-    fig <- fig %>%
-      layout(
-        xaxis = list(zerolinecolor = '#ffff',
-                     zerolinewidth = 2,
-                     gridcolor = 'ffff'),
-        yaxis = list(zerolinecolor = '#ffff',
-                     zerolinewidth = 2,
-                     gridcolor = 'ffff'),
-        plot_bgcolor='#e5ecf6', width = 650)
-    
-    
-    fig
-  })
 }

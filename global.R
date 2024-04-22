@@ -30,6 +30,20 @@ library(RMySQL)
 library(officer)
 library(flextable)
 
+filterStates <- reactiveValues(
+  # dataset
+  dataNavi = list(dataset = "Home"),
+  allDataset = NULL,
+  allSubItem = NULL,
+  countrySelected = "Cameroun",
+  aggregateRange = NULL,
+  first_date = "2024-01-01",
+  date_start = "2024-1-18",
+  date_end = "2024-1-25",
+  whoAsPrint = NULL,
+  filterButton = NULL
+)
+
 # load modules and function ####
 eval(parse('./modules/filter_section.R', encoding="UTF-8"))
 eval(parse('./modules/bs4_tooltip.R', encoding="UTF-8"))
@@ -69,7 +83,6 @@ eval(parse('./modules/generate_report.R', encoding='UTF-8'))
 # Text template loading ####
 helpText <- readxl::read_xlsx("./www/templates/help_template.xlsx")
 
-
 # modalXLargeDialog ####
 modalXLargeDialog <- function(..., title = NULL, footer = modalButton("Dismiss"),
                               easyClose = FALSE, fade = TRUE) {
@@ -94,5 +107,4 @@ modalXLargeDialog <- function(..., title = NULL, footer = modalButton("Dismiss")
 }
 
 #import data
-wd <- getwd()
-path <- paste0(wd,"/data")
+path <- paste0(getwd(),"/data")
