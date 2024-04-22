@@ -125,7 +125,7 @@ global_situation_tab_1 <- shiny::reactive({
   disposition_a_payer_amount <- disposition_a_payer$retail_banking[1] + disposition_a_payer$corporate_banking[1]
   tab$first_date[indice_ligne2] <- disposition_a_payer_amount
   
-  ############### Dépôts à vue ############################# Sum of all lines
+  ############### Dépôts à vue - Sum of all lines #############################
   indice_lignex <- which(tab$`encours_ressources` == 'Dépôts à vue')
   ################# i make the sum of al lgine
   depot_a_vue_amount <- c (compte_courant_amount + compte_bloquee_amount + compte_cheques_amount
