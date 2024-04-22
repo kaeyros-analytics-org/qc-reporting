@@ -1,6 +1,6 @@
 # Define server logic ----
 server <- function(input, output, session) {
-  #ns <- session$ns
+  ns <- session$ns
   ################### This code change the Tab Head Layout
   Sys.sleep(1.5)
   
@@ -32,34 +32,25 @@ server <- function(input, output, session) {
   
   #disable comment when we click on save
   observeEvent(input$save,{
-    shinyjs::disable("text1")
+    shinyjs::disable("text_global_situation_tab_1")
+    clicked_save(TRUE)
+    
   })
   
   #enable comment when we click on edit
   observeEvent(input$edit,{
-    shinyjs::enable("text1")
+    shinyjs::enable("text_global_situation_tab_1")
+    clicked_save(FALSE)
   })
   
-  output$text1 <- renderUI({
-    textAreaInput("text",label="",placeholder = "Write your comments here",height="380px",width="600px")
-  })
   #reactive input for comment
   text1 <- eventReactive(input$save,{
-    if(is.null(input$text)) {
+    if(is.null(input$text_global_situation_tab_1)) {
       return(" ")
     } else {
-      input$text
+      input$text_global_situation_tab_1
     }
   })
-    
-  tab1 <- readxl::read_excel(fichier)
-  tab2 <- readxl::read_excel(paste0(path,"/tab2.xlsx",sep=""))
-  tab2 <- tab2 %>% dplyr::rename(`18/01/2024`=`18/01/2024 ...2`) %>%
-    dplyr::rename(`25/01/2024`=`25/01/2024 ...3`) %>%
-    dplyr::rename(`Variation`=`Variation ...4`) %>%
-    dplyr::rename(`18/01/2024 `=`18/01/2024 ...6`) %>%
-    dplyr::rename(`25/01/2024 `=`25/01/2024 ...7`) %>%
-    dplyr::rename(`Variation `=`Variation ...8`)
   
   ################ Apply filter woth sidebar DATA
   observeEvent(input$filter_data, {
@@ -74,13 +65,28 @@ server <- function(input, output, session) {
     filterStates$filterButton <- TRUE
   })
   
-  #generation of the report
-  output$generate_report <- downloadHandler(
+  ############### this input verify if it's possible to download the report
+  clicked_save <- reactiveVal(FALSE)
+  
+  ########### click to generate report
+  observeEvent(input$generate_report, {
+    if(clicked_save() == FALSE) {
+      showModal(modalDialog(
+        title = "Generate Report Alert",
+        "Vous devez sauvegarder vos commentaires avant de télécharger votre rapport."
+      ))
+    } else if (clicked_save() == TRUE) {
+      shinyjs::click("download_report")
+    }
+  })
+  
+  ################ Download report button
+  output$download_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
     },
     content = function(file) {
-      doc <- generate_report(tab1,tab2,text1())
+      doc <- generate_report(global_situation_tab_1(),global_situation_tab_1(),text1())
       print(doc, target = file)
     }
   )

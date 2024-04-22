@@ -13,7 +13,7 @@ global_situation_ui <- function(id){
         ),
         div(style="display: flex;",
           div(class="col-lg-6 pr-1 pl-0",
-              uiOutput("text1"),
+              uiOutput(ns("text_global_situation_tab_1")),
             div(style="display: flex; justify-content: flex-end;",
               div(style = "margin-right: 10px;",
                 ActionButton.shinyInput("save", "Save", style = "background-color: #3392c5;
@@ -130,6 +130,11 @@ global_situation_server <- function(input, output, session){
               )
               
     ) # End Reactable
+  })
+  
+  ################# TextArea Input for first table
+  output$text_global_situation_tab_1 <- renderUI({
+    textAreaInput("text_global_situation_tab_1",label="",placeholder = "Ecrivez votre commentaire ici",height="380px",width="600px")
   })
   
 }
