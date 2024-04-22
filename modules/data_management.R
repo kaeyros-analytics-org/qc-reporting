@@ -32,7 +32,7 @@ row_2 <- c("Bons de caisse", "Dépôts à terme", "Banque et Etabl. Fin", "Dép�
 tab <- data.frame(
   `encours_ressources` = c(row_1, row_2),
   first_date = "",
-  Objectifs_date = "",
+  Objectifs_year = "",
   date_start = "",
   date_end = "",
   Variation = "",
@@ -42,6 +42,7 @@ tab <- data.frame(
 )
 
 
+##################### First table of Situation globale
 global_situation_tab_1 <- shiny::reactive({
   ###############" compte courant #####################
   compte_courant <- reactives$compte_courant() %>%
@@ -136,10 +137,12 @@ global_situation_tab_1 <- shiny::reactive({
   colnames(tab)[colnames(tab) == 'first_date'] <- as.character(filterStates$first_date)
   colnames(tab)[colnames(tab) == 'date_start'] <- as.character(filterStates$date_start)
   colnames(tab)[colnames(tab) == 'date_end'] <- as.character(filterStates$date_end)
+  colnames(tab)[colnames(tab) == 'Objectifs_year'] <- paste("Objectif", "2024")
   
   ############### Final data frame
   tab
-})
+}) #### END
+
 
 #Pour se deconnecter 
 #dbDisconnect(con)
