@@ -28,6 +28,7 @@ library(dplyr)
 #library(odbc)
 library(RMySQL)
 library(officer)
+library(lubridate)
 library(flextable)
 
 filterStates <- reactiveValues(
@@ -37,7 +38,7 @@ filterStates <- reactiveValues(
   allSubItem = NULL,
   countrySelected = "Cameroun",
   aggregateRange = NULL,
-  first_date = "2024-01-01",
+  first_date = "2023-12-31",
   date_start = "2024-1-18",
   date_end = "2024-1-25",
   whoAsPrint = NULL,

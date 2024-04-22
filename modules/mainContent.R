@@ -64,7 +64,7 @@ mainContentRouter_server <- function(input, output, session, dataset) {
       } else { # Home
         output$mainContent <- renderUI({
           tagList(
-            h2("Welcome to QC Reporting")
+            includeMarkdown("./www/htmlComponents/home.html"),
           )
         })
       }

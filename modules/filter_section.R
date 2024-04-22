@@ -10,18 +10,18 @@ filterStatesRouter_ui <- function(id) {
       }"
     ),
     div(id = "filterBox",
-        uiOutput(ns("country")),
         uiOutput(ns("dateRange")),
-        uiOutput(ns("dateToEvaluate")),
+        uiOutput(ns("country")),
+        uiOutput(ns("city")),
+        uiOutput(ns("agency")),
         uiOutput(ns("timeAggregation")),
         uiOutput(ns("eventTypeSelection")),
         ################### This button apply a filter
         uiOutput(ns("filter_button")),
-        tags$br(),        
-        uiOutput(ns("countryselect")),
-        
         ############ This button is for generate and Download report in .docx format
-        uiOutput(ns("generate"))
+        tags$br(),
+        uiOutput(ns("generate")),
+        uiOutput(ns("countryselect")),
     )
   )
   
@@ -35,23 +35,25 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       output$dateRange <- renderUI({
         "Quit home to see filter."
       })
-      output$timeAggregation <- renderUI({
-        ""
-      })
       output$country <- renderUI({
       ""
+      })
+      output$city <- renderUI({
+        ""
+      })
+      output$agency <- renderUI({
+        ""
       })
       output$filter_button <- renderUI({
         ""
       })
-      
+      output$timeAggregation <- renderUI({
+        ""
+      })
       output$generate <- renderUI({
         ""
       })
       
-      output$dateToEvaluate <- renderUI({
-        ""
-      })
       output$eventTypeSelection <- renderUI({ 
         ""  
       })
@@ -63,15 +65,15 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       output$dateRange <- renderUI({
         tagList(
           div(class="sidebar-header", tags$a("Choose date range: ")),
-          backendTooltip(span(`data-toggle`="tooltip", 
-                              `data-placement`="right", 
+          backendTooltip(span(`data-toggle`="tooltip",
+                              `data-placement`="right",
                               `data-html` = "true",
                               title = "Choississez l'écart de de date. Il doit être d'une semaine max.<br/>
-                           <b>Comment ça fonctionne:</b><br/>
+                           <b>Comment ça fonctionne:</b>
                            Crée une paire d'entrées de texte qui, lorsqu'elles sont cliquées,
-                          font apparaître des calendriers sur lesquels l'utilisateur peut cliquer pour sélectionner des dates..", 
+                          font apparaître des calendriers sur lesquels l'utilisateur peut cliquer pour sélectionner des dates.", 
                               HTML('<i class="bi bi-question-circle"></i>'))),
-          dateRangeInput("dateRangeInput", label = "",
+          dateRangeInput("dateRangeInput", label = NULL,
                          start = as.Date("2024-1-18"), end = as.Date("2024-1-25"),
                          min = "2021-10-20", max = "2024-3-31"),
           tags$script(src = "./js/tooltip.js")
@@ -111,16 +113,38 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
                       choices = choices, selected = selection)
         )
       })
-      ########################" dateToEvaluate filter
-      output$dateToEvaluate <- renderUI({
+      
+      ################## city selection filter
+      output$city <- renderUI({
+        selection <- "Yaoundé"
+        choices = c("Yaounde", "Douala", "Bafoussam", "Bertoua")
         tagList(
-          div(class="sidebar-header", tags$a("Date d'évaluation: ")),
-          backendTooltip(span(`data-toggle`="tooltip", 
+          div(class="sidebar-header", tags$a("Sélection de la ville: ")),
+          backendTooltip(span(`data-toggle`="tooltip",
                               `data-placement`="right", 
                               `data-html` = "true",
-                              title = "Vous pouvez choisir ici la date à partir de laquelle les données seront évaluer.", 
+                              title = "Vous pouvez choisir la ville 
+                            Cette sélection a un impact sur les données affichés", 
                               HTML('<i class="bi bi-question-circle"></i>'))),
-          dateInput("dateToEvaluate", "", value = "2024-01-01")
+          selectInput("cityInput", label = NULL,
+                      choices = choices, selected = selection)
+        )
+      })
+      
+      ################## agence selection filter
+      output$agency <- renderUI({
+        selection <- "Hippodrome"
+        choices = c("Damas", "Efoulan", "Abbia", "Manguier")
+        tagList(
+          div(class="sidebar-header", tags$a("Sélection de l'agence: ")),
+          backendTooltip(span(`data-toggle`="tooltip",
+                              `data-placement`="right", 
+                              `data-html` = "true",
+                              title = "Vous pouvez choisir l'agence 
+                            Cette sélection a un impact sur les données affichés", 
+                              HTML('<i class="bi bi-question-circle"></i>'))),
+          selectInput("agencyInput", label = NULL,
+                      choices = choices, selected = selection)
         )
       })
       
