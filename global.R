@@ -78,7 +78,7 @@ eval(parse('./modules/headerFormRadioControl.R', encoding='UTF-8'))
 eval(parse('./modules/generate_report.R', encoding='UTF-8'))
 
 # manage SQL data
-#eval(parse('./modules/data_management.R', encoding='UTF-8'))
+eval(parse('./modules/data_management.R', encoding='UTF-8'))
 
 # Text template loading ####
 helpText <- readxl::read_xlsx("./www/templates/help_template.xlsx")

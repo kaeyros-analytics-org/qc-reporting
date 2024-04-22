@@ -1,6 +1,6 @@
 # Define server logic ----
 server <- function(input, output, session) {
-  #ns <- session$ns
+  ns <- session$ns
   ################### This code change the Tab Head Layout
   Sys.sleep(1.5)
   
@@ -74,15 +74,20 @@ server <- function(input, output, session) {
     filterStates$filterButton <- TRUE
   })
   
-  #generation of the report
-  
   output$generate_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
     },
     content = function(file) {
-      doc <- generate_report(tab1,tab2,text1())
-      print(doc, target = file)
+      if(is.null(input$save)) {
+        showModal(modalDialog(
+          title = "Alert",
+          "Please you have to save your comments before downloading your report!"
+        ))
+      } else {
+        doc <- generate_report(tab1,tab2,text1())
+        print(doc, target = file)
+      }
     }
   )
 }

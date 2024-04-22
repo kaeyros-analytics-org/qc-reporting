@@ -134,6 +134,16 @@ global_situation_tab_1 <- shiny::reactive({
   
   tab$first_date[indice_lignex] <- depot_a_vue_amount
   
+  
+  # bon_caisse_amount <- reactives$bon_de_caisse() %>%
+  #   filter(date == as.Date(filterStates$first_date))
+  # # Récupérer l'indice de la ligne 'compte_courant'
+  # indice_ligne <- which(tab$`encours_ressources` == 'Compte courant')
+  # ################# i make the sum of retail and corporate banking
+  # compte_courant_amount <- compte_courant$retail_banking[1] + compte_courant$corporate_banking[1]
+  # tab$first_date[indice_ligne] <- compte_courant_amount
+  # bon_caisse_amount <- 
+  
   colnames(tab)[colnames(tab) == 'first_date'] <- as.character(filterStates$first_date)
   colnames(tab)[colnames(tab) == 'date_start'] <- as.character(filterStates$date_start)
   colnames(tab)[colnames(tab) == 'date_end'] <- as.character(filterStates$date_end)

@@ -28,7 +28,7 @@ filterStatesRouter_ui <- function(id) {
 }
 
 filterStatesRouter_server <- function(input, output, session, filterStates) {
-  
+  #ns <- session$ns
   observeEvent(filterStates$dataNavi$dataset, {
     if(filterStates$dataNavi$dataset == "Home"){ ########## We don't need to display filter when we are at home page.
       
@@ -133,7 +133,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       })
       
       output$generate <- renderUI({
-        #uiOutput(ns("generate_report"))
+        #uiOutput("generate_report")
         downloadButton("generate_report", "Download as.docx)",
            style = "background-color: #0093FF; color: #fff; display: block; margin: auto; width: 70%;")
         #actionButton("generate_report", "Download as Word (.docx)")
