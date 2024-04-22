@@ -34,11 +34,14 @@ server <- function(input, output, session) {
   #disable comment when we click on save
   observeEvent(input$save,{
     shinyjs::disable("text1")
+    #clicked_save$isclicked <- TRUE
+    
   })
   
   #enable comment when we click on edit
   observeEvent(input$edit,{
     shinyjs::enable("text1")
+    #clicked_save$isclicked <- FALSE
   })
   
   output$text1 <- renderUI({
@@ -74,6 +77,7 @@ server <- function(input, output, session) {
     filterStates$filterButton <- TRUE
   })
   
+  clicked_save <- reactiveValues(isclicked=FALSE)
   output$generate_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
@@ -84,10 +88,23 @@ server <- function(input, output, session) {
           title = "Alert",
           "Please you have to save your comments before downloading your report!"
         ))
-      } else {
+      } else if (not.null(input$edit)) {
+        showModal(modalDialog(
+          title = "Alert",
+          "Please you have to save your comments after edition before downloading your report!"
+        ))
+      } 
+      else {
         doc <- generate_report(tab1,tab2,text1())
         print(doc, target = file)
       }
+      #clicked_save$isClicked <- FALSE
     }
   )
+  observeEvent(input$save,{
+    reset("save")
+  })
+  # observeEvent(input$save, {
+  #   clicked_save$isclicked <- FALSE
+  # })
 }

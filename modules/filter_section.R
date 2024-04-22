@@ -3,12 +3,6 @@ filterStatesRouter_ui <- function(id) {
   ns <- NS(id)
   fluentPage(
     shinyjs::useShinyjs(),
-    tags$style("
-      #dateToEvaluate {
-          width: 90%;
-          margin: auto;
-      }"
-    ),
     div(id = "filterBox",
         uiOutput(ns("dateRange")),
         uiOutput(ns("country")),
