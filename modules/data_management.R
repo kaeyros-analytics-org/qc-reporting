@@ -147,7 +147,7 @@ global_situation_tab_1 <- shiny::reactive({
   colnames(tab)[colnames(tab) == 'first_date'] <- as.character(filterStates$first_date)
   colnames(tab)[colnames(tab) == 'date_start'] <- as.character(filterStates$date_start)
   colnames(tab)[colnames(tab) == 'date_end'] <- as.character(filterStates$date_end)
-  colnames(tab)[colnames(tab) == 'Objectifs_year'] <- paste("Objectif", "2024")
+  colnames(tab)[colnames(tab) == 'Objectifs_year'] <- paste("Objectif", year(filterStates$date_start))
   
   ############### Final data frame
   tab

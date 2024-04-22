@@ -65,8 +65,8 @@ server <- function(input, output, session) {
   ################ Apply filter woth sidebar DATA
   observeEvent(input$filter_data, {
     print("Apply the filter")
+    filterStates$first_date <- lubridate::make_date(year(filterStates$date_start)-1 , 12, 31)
     filterStates$countrySelected <- input$countryInput
-    filterStates$first_date <- input$dateToEvaluate
     filterStates$aggregateRange <- input$timeAggregationInput
     filterStates$date_start <- input$dateRangeInput[1]
     filterStates$date_end <- input$dateRangeInput[2]
