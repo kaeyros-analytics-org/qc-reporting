@@ -79,6 +79,7 @@ server <- function(input, output, session) {
   })
   
   #generation of the report
+  
   output$generate_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
