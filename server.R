@@ -20,7 +20,6 @@ server <- function(input, output, session) {
     observeEvent(input$datasetNav,
     {
       filterStates$allDataset <- input$allNav
-      filterStates$whoAsPrint <- c("Situation Globale", "Situation Par réseau", "Entrées en relation", "CPIO")
       filterStates$dataNavi$dataset <- input$datasetNav
       #message(filterStates[[paste0(filterStates$dataNavi$dataset, "_tabSetPanel")]])
     })
@@ -71,6 +70,7 @@ server <- function(input, output, session) {
     filterStates$date_start <- input$dateRangeInput[1]
     filterStates$date_end <- input$dateRangeInput[2]
     #filterStates$whoAsPrint <- input$eventTypePicker
+    filterStates$whoAsPrint <- input$eventTypePicker
     filterStates$filterButton <- TRUE
   })
   

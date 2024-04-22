@@ -37,12 +37,14 @@ filterStates <- reactiveValues(
   allDataset = NULL,
   allSubItem = NULL,
   countrySelected = "Cameroun",
-  aggregateRange = NULL,
+  citySelected = "Yaoundé",
+  agencySelected = "Hippodrome",
+  aggregateRange = "Jour",
   first_date = "2023-12-31",
   date_start = "2024-1-18",
   date_end = "2024-1-25",
-  whoAsPrint = NULL,
-  filterButton = NULL
+  whoAsPrint = c("Situation Globale", "Situation Par réseau", "Entrées en relation", "CPIO"),
+  filterButton = FALSE
 )
 
 # load modules and function ####

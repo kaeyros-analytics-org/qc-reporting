@@ -3,12 +3,6 @@ filterStatesRouter_ui <- function(id) {
   ns <- NS(id)
   fluentPage(
     shinyjs::useShinyjs(),
-    tags$style("
-      #dateToEvaluate {
-          width: 90%;
-          margin: auto;
-      }"
-    ),
     div(id = "filterBox",
         uiOutput(ns("dateRange")),
         uiOutput(ns("country")),
@@ -21,7 +15,7 @@ filterStatesRouter_ui <- function(id) {
         ############ This button is for generate and Download report in .docx format
         tags$br(),
         uiOutput(ns("generate")),
-        uiOutput(ns("countryselect")),
+        uiOutput(ns("countryselect"))
     )
   )
   
@@ -74,7 +68,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
                           font apparaître des calendriers sur lesquels l'utilisateur peut cliquer pour sélectionner des dates.", 
                               HTML('<i class="bi bi-question-circle"></i>'))),
           dateRangeInput("dateRangeInput", label = NULL,
-                         start = as.Date("2024-1-18"), end = as.Date("2024-1-25"),
+                         start = as.Date(filterStates$date_start), end = as.Date(filterStates$date_end),
                          min = "2021-10-20", max = "2024-3-31"),
           tags$script(src = "./js/tooltip.js")
         )
@@ -82,7 +76,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       
       ################## Time aggregation filter
       output$timeAggregation <- renderUI({
-        selection <- "week"
+        selection <- filterStates$aggregateRange
         choices = c("Jour", "Semaine", "Mois", "Annee")
         tagList(
           div(class="sidebar-header", tags$a("Temps d'agrégation: ")),
@@ -99,7 +93,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       
       ################## Country selection filter
       output$country <- renderUI({
-        selection <- "Cameroun"
+        selection <- filterStates$countrySelected
         choices = c("Cameroun", "Congo", "Guinnée", "Tchad")
         tagList(
           div(class="sidebar-header", tags$a("Sélection du pays: ")),
@@ -116,7 +110,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       
       ################## city selection filter
       output$city <- renderUI({
-        selection <- "Yaoundé"
+        selection <- filterStates$citySelected
         choices = c("Yaounde", "Douala", "Bafoussam", "Bertoua")
         tagList(
           div(class="sidebar-header", tags$a("Sélection de la ville: ")),
@@ -133,7 +127,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       
       ################## agence selection filter
       output$agency <- renderUI({
-        selection <- "Hippodrome"
+        selection <- filterStates$agencySelected
         choices = c("Damas", "Efoulan", "Abbia", "Manguier")
         tagList(
           div(class="sidebar-header", tags$a("Sélection de l'agence: ")),
@@ -169,7 +163,8 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       
       output$eventTypeSelection <- renderUI({
         
-          choices <- c(paste0("Ressouces", " - ", filterStates$whoAsPrint), "Réemploies", "Recouvrement", "Production")  
+        states <- c("Situation Globale", "Situation Par réseau", "Entrées en relation", "CPIO")
+        choices <- c(paste0("Ressouces", " - ", states), "Réemploies", "Recouvrement", "Production")
         
           tagList(
             div(tabindex="0", `aria-label` = "Ereignistyp", class="sidebar-header", tags$a("Quel élément doit être générer? ")),
@@ -189,7 +184,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
                           selectAllText = '<span style="font-size: 0.8em;">Tous</span>',
                           deselectAllText = '<span style="font-size: 0.8em;">Reset</span>'
                         ),
-                        selected = choices,
+                        selected = filterStates$whoAsPrint,
                         inline = F)
           )
         
