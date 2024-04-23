@@ -11,21 +11,20 @@ setClickedId <- function(inputId) {
 #   admin = c(FALSE, TRUE),
 #   stringsAsFactors = FALSE
 # )
-# #
-# key_set("R-shinymanager-key", "antid")
+# # #
+# key_set("R-shinymanager-key", "qc_reporting")
 # #
 # create_db(
 #   credentials_data = credentials,
 #   sqlite_path = "data/database.sqlite", # will be created
-#   #passphrase = key_get("R-shinymanager-key", "antid")
-#    passphrase = "passphrase_wihtout_keyring"
+#   passphrase = key_get("R-shinymanager-key", "qc_reporting")
+#    #passphrase = "passphrase_wihtout_keyring"
 # )
-# 
+# # 
 # css <- HTML(".btn-primary {
 #                   color: #ebe8e8;
 #                   background-color: #2B8049;
-#                   border-color: #2B8049;
-# }
+#                   border-color: #2B8049;}
 #               .panel-auth {
 #               background-color: #2B8049;
 #               }
@@ -54,7 +53,7 @@ mainContentRouter_ui <- function(id) {
                      type = 8,
                      color = 'grey', size = 0.7)
 
-  return(out)
+  #return(out)
 
 }
 
@@ -74,8 +73,8 @@ mainContentRouter_server <- function(input, output, session, dataset) {
   # res_auth <- shinymanager::secure_server(
   #   check_credentials = shinymanager::check_credentials(
   #     "data/database.sqlite",
-  #     #passphrase = key_get("R-shinymanager-key", "antid")
-  #      passphrase = "passphrase_wihtout_keyring"
+  #     passphrase = key_get("R-shinymanager-key", "qc_reporting")
+  #      #passphrase = "passphrase_wihtout_keyring"
   #   )
   # )
   ############# This UI is for ressources Layout Page

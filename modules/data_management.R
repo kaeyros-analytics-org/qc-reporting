@@ -92,6 +92,7 @@ global_situation_tab_1 <- shiny::reactive({
   disposition_a_payer_amount <- fill_cell(reactives$disposition_a_payer(),filterStates$first_date,"Disposition à Payer")
   tab$first_date[which(tab$`encours_ressources` == "Disposition à Payer")] <- disposition_a_payer_amount
   
+
   ############### Dépôts à vue ############################# Sum of all lines
   depot_a_vue_amount <- c(compte_courant_amount + compte_bloquee_amount + compte_cheques_amount
   + compte_livrets_amount + depot_garantie_amount + flash_cash_amount + autre_somme_client_amount
@@ -112,11 +113,11 @@ global_situation_tab_1 <- shiny::reactive({
   tab$first_date[which(tab$`encours_ressources` == "Banque et Etabl. Fin")] <- banque_ets_amount
   
   ### fill cell for Dépôts à terme2
-  depot_terme_amount_ <- c(bon_caisse_amount + depot_terme_amount + banque_ets_amount)
-  tab$first_date[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount_
+  depot_terme_amount_final <- c(bon_caisse_amount + depot_terme_amount + banque_ets_amount)
+  tab$first_date[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount_final
   
   ## fill cell for Total des ressources
-  total_ressources_amount <- c(depot_terme_amount_ + depot_a_vue_amount)
+  total_ressources_amount <- c(depot_terme_amount_final + depot_a_vue_amount)
   tab$first_date[which(tab$`encours_ressources` == 'Total des ressources')] <- total_ressources_amount
   
   ##### fill the first date column 
@@ -179,12 +180,12 @@ global_situation_tab_1 <- shiny::reactive({
   tab$date_start[which(tab$`encours_ressources` == "Banque et Etabl. Fin")] <- banque_ets_amount2
   
   ### fill cell for Dépôts à terme2
-  depot_terme_amount2_ <- c(bon_caisse_amount2 + depot_terme_amount2 + banque_ets_amount2)
-  tab$date_start[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount2_
+  depot_terme_amount2_final <- c(bon_caisse_amount2 + depot_terme_amount2 + banque_ets_amount2)
+  tab$date_start[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount2_final
   
   
   ## fill cell for Total des ressources
-  total_ressources_amount2 <- c(depot_terme_amount2_ + depot_a_vue_amount2)
+  total_ressources_amount2 <- c(depot_terme_amount2_final + depot_a_vue_amount2)
   tab$date_start[which(tab$`encours_ressources` == 'Total des ressources')] <- total_ressources_amount2
   
   ### fill column second date
@@ -247,12 +248,12 @@ global_situation_tab_1 <- shiny::reactive({
   tab$date_end[which(tab$`encours_ressources` == "Banque et Etabl. Fin")] <- banque_ets_amount3
   
   ### fill cell for Dépôts à terme2
-  depot_terme_amount3_ <- c(bon_caisse_amount3 + depot_terme_amount3 + banque_ets_amount3)
-  tab$date_end[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount3_
+  depot_terme_amount3_final <- c(bon_caisse_amount3 + depot_terme_amount3 + banque_ets_amount3)
+  tab$date_end[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount3_final
   
   
   ## fill cell for Total des ressources
-  total_ressources_amount3 <- c(depot_terme_amount3_ + depot_a_vue_amount3)
+  total_ressources_amount3 <- c(depot_terme_amount3_final + depot_a_vue_amount3)
   tab$date_end[which(tab$`encours_ressources` == 'Total des ressources')] <- total_ressources_amount3
   
   for (i in 1:nrow(tab)){

@@ -14,8 +14,8 @@ generate_report <- function(tab1,tab2,text1){
   tab1<- bg(tab1, i=c(11,15),bg = "#D3D3D3")
   tab1<- bg(tab1, i=16,bg = "#808080")
   tab1<- bg(tab1, j=c(7,8),bg = "#ffffff")
-  tab1 <- bg(tab1, i = ~ `Variation `<0, 
-             j = ~ `Variation `, 
+  tab1 <- bg(tab1, i = ~ `Variation`<0, 
+             j = ~ `Variation`, 
              bg="red")
   tab1 <- align(tab1, align = "right", part = "all")
   
