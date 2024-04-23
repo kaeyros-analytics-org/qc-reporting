@@ -1,4 +1,5 @@
-ui <- htmlTemplate("www/index.html",
+ui_d <- function(id) {
+  htmlTemplate("www/index.html",
   
   ############## Content of sideBar navigation
   sidebarNavigation = 
@@ -20,5 +21,6 @@ ui <- htmlTemplate("www/index.html",
   ################# Content of Body display
   contentSection = mainContentRouter_ui(id = "mainContentRouter")
 ) 
+}
 
 

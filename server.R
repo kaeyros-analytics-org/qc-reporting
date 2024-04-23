@@ -1,9 +1,9 @@
 # Define server logic ----
 server <- function(input, output, session) {
-  ns <- session$ns
+  #ns <- session$ns
   ################### This code change the Tab Head Layout
   Sys.sleep(1.5)
-  
+  print("server")
   ######### Set the first active page Layout
   callModule(mainContentRouter_server, id = "mainContentRouter", dataset = "Home")
   observeEvent(input$datasetNav, {
