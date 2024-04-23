@@ -16,7 +16,7 @@ mainContentRouter_ui <- function(id) {
   
 }
 
-mainContentRouter_server <- function(input, output, session, dataset) {
+mainContentRouter_server <- function(input, output, session, filterStates) {
   ############# This UI is for ressources Layout Page
   ui_ressouces = Pivot(linkFormat = "tabs",
                        onLinkClick = setClickedId(session$ns("ressources_tabs")),
@@ -36,27 +36,27 @@ mainContentRouter_server <- function(input, output, session, dataset) {
   ############# This UI is for Production Layout Page
   ui_production = production_ui(session$ns("production"))
   
-  observeEvent(dataset, 
-    { print(paste("mon dataset: ", dataset))
+  observeEvent(filterStates$dataNavi$dataset, 
+    { print(paste("mon dataset: ", filterStates$dataNavi$dataset))
       # generate Ressources content ####
-      if(dataset == "Ressources") {
+      if(filterStates$dataNavi$dataset == "Ressources") {
         output$mainContent <- renderUI({
           div( id = "navtabs",
                ui_ressouces
           )
         })
       # generate Réemploies content ####
-      } else if(dataset == "Réemploies") {
+      } else if(filterStates$dataNavi$dataset == "Réemploies") {
         output$mainContent <- renderUI({
           ui_reemploie
         })
         # generate Recouvrement content ####
-      } else if(dataset == "Recouvrement") {
+      } else if(filterStates$dataNavi$dataset == "Recouvrement") {
         output$mainContent <- renderUI({
           ui_recouvrement
         })
         # generate Production content ####
-      } else if(dataset == "Production") {
+      } else if(filterStates$dataNavi$dataset == "Production") {
         output$mainContent <- renderUI({
           ui_production
         })

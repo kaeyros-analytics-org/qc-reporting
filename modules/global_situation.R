@@ -99,7 +99,7 @@ global_situation_server <- function(input, output, session){
   })
   
   output$global_situation_tab_2 <- renderReactable({
-    reactable(global_situation_tab_1(), resizable = TRUE, selection = "single", #searchable = TRUE,
+    reactable(global_situation_tab_2(), resizable = TRUE, selection = "single", #searchable = TRUE,
               onClick = "select", pagination = FALSE, 
               #searchable = TRUE,
               wrap = FALSE,

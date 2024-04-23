@@ -10,6 +10,7 @@ library(shinymanager)
 library(reactable)
 library(sf)
 library(shinyWidgets)
+library(markdown)
 library(stringr)
 library(leaflet)
 library(plotly)
@@ -39,7 +40,6 @@ filterStates <- reactiveValues(
   countrySelected = "Cameroun",
   citySelected = "Yaoundé",
   agencySelected = "Hippodrome",
-  aggregateRange = "Jour",
   first_date = "2023-12-31",
   date_start = "2024-1-18",
   date_end = "2024-1-25",

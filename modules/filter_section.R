@@ -4,11 +4,10 @@ filterStatesRouter_ui <- function(id) {
   fluentPage(
     shinyjs::useShinyjs(),
     div(id = "filterBox",
-        uiOutput(ns("dateRange")),
         uiOutput(ns("country")),
+        uiOutput(ns("dateRange")),
         uiOutput(ns("city")),
         uiOutput(ns("agency")),
-        uiOutput(ns("timeAggregation")),
         uiOutput(ns("eventTypeSelection")),
         ################### This button apply a filter
         uiOutput(ns("filter_button")),
@@ -41,9 +40,6 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       output$filter_button <- renderUI({
         ""
       })
-      output$timeAggregation <- renderUI({
-        ""
-      })
       output$generate <- renderUI({
         ""
       })
@@ -71,23 +67,6 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
                          start = as.Date(filterStates$date_start), end = as.Date(filterStates$date_end),
                          min = "2021-10-20", max = "2024-3-31"),
           tags$script(src = "./js/tooltip.js")
-        )
-      })
-      
-      ################## Time aggregation filter
-      output$timeAggregation <- renderUI({
-        selection <- filterStates$aggregateRange
-        choices = c("Jour", "Semaine", "Mois", "Annee")
-        tagList(
-          div(class="sidebar-header", tags$a("Temps d'agrégation: ")),
-          backendTooltip(span(`data-toggle`="tooltip", 
-                              `data-placement`="right", 
-                              `data-html` = "true",
-                              title = "Vous pouvez choisir ici la manière dont les données doivent être agrégées dans le temps. 
-                            Cette sélection a un impact important sur les graphiques linéaires dans les différents domaines d'analyse.", 
-                              HTML('<i class="bi bi-question-circle"></i>'))),
-          selectInput("timeAggregationInput", label = NULL,
-                      choices = choices, selected = selection)
         )
       })
       
