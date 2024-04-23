@@ -1,28 +1,36 @@
 # Define server logic ----
 server <- function(input, output, session) {
-  #ns <- session$ns
+  ns <- session$ns
+
+  ### Login logic server
+  res_auth <- shinymanager::secure_server(
+    check_credentials = shinymanager::check_credentials(
+      "./data/database.sqlite",
+      #passphrase = keyring::key_get("R-shinymanager-key", "datacatalogapp")
+      passphrase = "passphrase_wihtout_keyring"
+    ), keep_token = FALSE) #keep_token = TRUE
+  
+  data_connexion <- reactive({
+    reactiveValuesToList(res_auth)
+  })
+  
   ################### This code change the Tab Head Layout
   Sys.sleep(1.5)
-  print("server")
+    
+    observeEvent(input$datasetNav,
+    {
+      filterStates$allDataset <- input$allNav
+      filterStates$dataNavi$dataset <- input$datasetNav
+    })
+  
   ######### Set the first active page Layout
-  callModule(mainContentRouter_server, id = "mainContentRouter", dataset = "Home")
-  observeEvent(input$datasetNav, {
-    ############ initialization of first call module for main content
-    callModule(mainContentRouter_server, id = "mainContentRouter", dataset = input$datasetNav)
-  })
+  callModule(mainContentRouter_server, id = ns("mainContentRouter"), filterStates = filterStates)
   
   ########## Call filter server module
   callModule(filterStatesRouter_server, id = "filterStates", filterStates = filterStates)
   
   ####### Call server module for start tour.
   callModule(headerWalkthrough_server, id = "walkthrough", filterStates = filterStates)
-  
-    observeEvent(input$datasetNav,
-    {
-      filterStates$allDataset <- input$allNav
-      filterStates$dataNavi$dataset <- input$datasetNav
-      #message(filterStates[[paste0(filterStates$dataNavi$dataset, "_tabSetPanel")]])
-    })
   
   ############## Icon selection for display modal form
   observeEvent(input$iconSelection, {
@@ -57,7 +65,6 @@ server <- function(input, output, session) {
     print("Apply the filter")
     filterStates$first_date <- lubridate::make_date(year(filterStates$date_start)-1 , 12, 31)
     filterStates$countrySelected <- input$countryInput
-    filterStates$aggregateRange <- input$timeAggregationInput
     filterStates$date_start <- input$dateRangeInput[1]
     filterStates$date_end <- input$dateRangeInput[2]
     #filterStates$whoAsPrint <- input$eventTypePicker
