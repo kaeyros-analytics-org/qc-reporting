@@ -31,6 +31,8 @@ library(officer)
 library(lubridate)
 library(flextable)
 library(upstartr)
+library(keyring)
+library(shinymanager)
 
 filterStates <- reactiveValues(
   # dataset

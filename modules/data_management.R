@@ -116,7 +116,7 @@ global_situation_tab_1 <- shiny::reactive({
   tab$first_date[which(tab$`encours_ressources` == 'Dépôts à terme ')] <- depot_terme_amount_
   
   ## fill cell for Total des ressources
-  total_ressources_amount <- c(depot_terme_amount + depot_a_vue_amount)
+  total_ressources_amount <- c(depot_terme_amount_ + depot_a_vue_amount)
   tab$first_date[which(tab$`encours_ressources` == 'Total des ressources')] <- total_ressources_amount
   
   ##### fill the first date column 
@@ -184,7 +184,7 @@ global_situation_tab_1 <- shiny::reactive({
   
   
   ## fill cell for Total des ressources
-  total_ressources_amount2 <- c(depot_terme_amount2 + depot_a_vue_amount2)
+  total_ressources_amount2 <- c(depot_terme_amount2_ + depot_a_vue_amount2)
   tab$date_start[which(tab$`encours_ressources` == 'Total des ressources')] <- total_ressources_amount2
   
   ### fill column second date
