@@ -41,7 +41,6 @@ ui <- function(id){
                                         dataModal = headerDataModal_ui(id = "data"),
                                         walkthrough = headerWalkthrough_ui(id = "walkthrough")
                ),
-               
                ################# Content of Body display
                contentSection = mainContentRouter_ui("mainContentRouter")
                

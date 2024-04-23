@@ -124,7 +124,7 @@ global_situation_server <- function(input, output, session){
                   = list(background = "hsl(0, 0%, 96%)"),
                   borderColor = "grey"
                 ),
-                rowSelectedStyle = list(backgroundColor = "#E80707",
+                rowSelectedStyle = list(backgroundColor = "#3392c5",
                                         boxShadow = "inset 2px 0 0 0 #ffa62d")
                 
               )
