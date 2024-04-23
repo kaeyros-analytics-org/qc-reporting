@@ -25,14 +25,20 @@ names(reactives) <- tables
 
 
 ############## Contain the first element of column encours_ressources of global_situation_tab_1
-row_1 <- c("Compte courant", "Compte bloquées", "Compte chèques", "Compte livrets", "Dépots de garantie",
+row_tab_1_1 <- c("Compte courant", "Compte bloquées", "Compte chèques", "Compte livrets", "Dépots de garantie",
            "Flash cash", "Autres sommes dues à la clientèle", "Valeur non imputées", 
            "Comptes à vue des correspondants", "Disposition à Payer", "Dépôts à vue")
-row_2 <- c("Bons de caisse", "Dépôts à terme", "Banque et Etabl. Fin", "Dépôts à terme ", "Total des ressources")
+row_tab_1_2 <- c("Bons de caisse", "Dépôts à terme", "Banque et Etabl. Fin", "Dépôts à terme ", "Total des ressources")
 
-###########"" contain of global_situation_tab_1 data frame
+############## Contain the first element of column encours_ressources of global_situation_tab_2
+row_tab_2_1 <- c("Compte courant", "Compte bloquées", "Compte chèques", "Compte livrets", "Dépots de garantie",
+           "Flash cash", "Autres sommes dues à la clientèle", "Valeur non imputées", 
+           "Comptes à vue des correspondants", "Disposition à Payer", "Dépôts à vue")
+row_tab_2_2 <- c("Bons de caisse", "Dépôts à terme", "Banque et Etabl. Fin", "Dépôts à terme ", "Total des ressources")
+
+############## contain of global_situation_tab_1 data frame
 tab <- data.frame(
-  `encours_ressources` = c(row_1, row_2),
+  `encours_ressources` = c(row_tab_1_1, row_tab_1_2),
   first_date = "",
   Objectifs_year = "",
   date_start = "",
@@ -42,6 +48,19 @@ tab <- data.frame(
   taux_de_realisation = "",
   stringsAsFactors = FALSE
 )
+
+############## contain of global_situation_tab_2 data frame
+tab_2 <- data.frame(
+  `encours_ressources` = c(row_tab_2_1, row_tab_2_2),
+  retails_date_start = "",
+  retails_date_end = "",
+  space = "",
+  corporate_date_start = "",
+  corporate_date_end = "",
+  Variation = "",
+  stringsAsFactors = FALSE
+)
+
 fill_cell <- function(compte,filter,name){
   values <- compte %>%
     filter(date == as.Date(filter))

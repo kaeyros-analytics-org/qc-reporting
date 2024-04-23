@@ -93,7 +93,7 @@ server <- function(input, output, session) {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
     },
     content = function(file) {
-      doc <- generate_report(global_situation_tab_1(),global_situation_tab_1(),text1())
+      doc <- generate_report(global_situation_tab_1(),global_situation_tab_2(),text1())
       print(doc, target = file)
     }
   )
