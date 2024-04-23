@@ -1,7 +1,9 @@
 ################# this file is dedicated to manage SQL database data.
 
 ############## import SQL DATA
-con <- DBI::dbConnect(RMySQL::MySQL(), host = "localhost", dbname="afriland", user = "root", password = "",  bigint = "integer")
+#con <- DBI::dbConnect(RMySQL::MySQL(), host = "localhost", dbname="afriland", user = "root", password = "",  bigint = "integer")
+
+con <- DBI::dbConnect(RSQLite::SQLite(), "./data/afriland_fake_data.sqlite")
 
 ############ Liste de toutes les tables présente
 tables <-  dbListTables(con)
