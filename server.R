@@ -122,9 +122,4 @@ server <- function(input, output, session) {
       print(doc, target = file)
     }
   )
-  
-  observe({
-    saveRDS(global_situation_tab_2(),"./data/retail.rds")
-    saveRDS(global_situation_tab_3(), "./data/corporate.rds")
-  })
 }
