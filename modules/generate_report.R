@@ -6,7 +6,8 @@ generate_report <- function(tab1,tab2,text1){
     border.color = "#000000",
     theme_fun = "theme_box",
     padding.top = 3, padding.bottom = 3,
-    padding.left = 4, padding.right = 4)
+    padding.left = 4, padding.right = 4,
+    text.align = "right")
   
   tab1<- flextable(tab1)
   tab1 <- bg(tab1, j = 1, bg = "#f8cbdb", part = "all")
@@ -18,7 +19,7 @@ generate_report <- function(tab1,tab2,text1){
              j = ~ `Variation`, 
              bg="red")
   tab1 <- align(tab1, align = "right", part = "all")
-  
+  tab1 <- autofit(tab1)
   
   text_style <- fp_text(font.size = 11,font.family = "Trebuchet MS")
   par_style <- fp_par(text.align = "justify",line_spacing = 1,)
@@ -37,7 +38,7 @@ generate_report <- function(tab1,tab2,text1){
   doc <- body_add_flextable(doc,set_table_properties(tab1, width = 1, layout = "autofit"))
   doc <- body_add_par(doc," ")
   doc <- body_add_fpar(doc, fpar( ftext("                                                                 Retail banking                            Corporate banking", prop = text_style), fp_p = par_style ) )
-  doc <- body_add_flextable(doc,set_table_properties(flextable(tab2), width = 1, layout = "autofit"))
+  doc <- body_add_flextable(doc,set_table_properties(tab2, width = 1, layout = "autofit"))
   
   return(doc)
   

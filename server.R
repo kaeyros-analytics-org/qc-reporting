@@ -87,14 +87,44 @@ server <- function(input, output, session) {
     }
   })
   
+  tab4 <- reactive({
+    data <- global_situation_tab_3()
+    col_names <- c(names(data))
+    nb <- length(col_names)
+    for (i in 1:nb) {
+      col_names[i] <- paste0(col_names[i], paste0(rep(" ", i), collapse = ""), collapse = "")
+    }
+    colnames(data) <- col_names
+    data
+  })
+  
+  f <- reactive({
+    final <- cbind(global_situation_tab_2(),tab4())
+    final_ <- flextable(
+    data = final,
+    col_keys = c(names(final)[1:4],"col1",names(final)[5:7])) |>
+    #width(j = "col1", width = .2) |>
+    empty_blanks(width = 100)
+    final_ <- width(final_, j = "col1", width = 2)
+    final_ <- align(final_, align = "right", part = "all")
+    final_<- bg(final_, i=c(11,15),bg = "#D3D3D3")
+    final_<- bg(final_, i=16,bg = "#808080")
+    final_<- bg(final_, bg = "#808080", part = "header")
+    })
+
   ################ Download report button
   output$download_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
     },
     content = function(file) {
-      doc <- generate_report(global_situation_tab_1(),global_situation_tab_2(),text1())
+      doc <- generate_report(global_situation_tab_1(),f(),text1())
       print(doc, target = file)
     }
   )
+  
+  observe({
+    saveRDS(global_situation_tab_2(),"./data/retail.rds")
+    saveRDS(global_situation_tab_3(), "./data/corporate.rds")
+  })
 }

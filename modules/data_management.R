@@ -7,8 +7,10 @@ con <- DBI::dbConnect(RSQLite::SQLite(), "./data/afriland_fake_data.sqlite")
 
 ############ Liste de toutes les tables présente
 tables <-  dbListTables(con)
-#tables <-  as.data.frame(tables)
 
+compte_courant<-DBI::dbGetQuery(con, paste("select * from ","compte_courant" , sep = ""))
+compte_courant <- compte_courant %>% dplyr::filter(date>="2024-01-18" & date <= "2024-01-25")
+compte_courant$Amount <- compte_courant$retail_banking + compte_courant$corporate_banking
 ########### J'actualise les données toutes les 3 secondes
 autoInvalidate <- reactiveTimer(3000)
 
@@ -22,7 +24,6 @@ reactives <- lapply(tables, function(table_name) {
 
 # Affecter les réactifs à des noms de variable distincts
 names(reactives) <- tables
-
 
 ############## Contain the first element of column encours_ressources of global_situation_tab_1
 row_tab_1_1 <- c("Compte courant", "Compte bloquées", "Compte chèques", "Compte livrets", "Dépots de garantie",
@@ -54,7 +55,12 @@ tab_2 <- data.frame(
   `encours_ressources` = c(row_tab_2_1, row_tab_2_2),
   retails_date_start = "",
   retails_date_end = "",
-  space = "",
+  Variation = "",
+  stringsAsFactors = FALSE
+)
+
+tab_3 <- data.frame(
+  `encours_ressources` = c(row_tab_2_1, row_tab_2_2),
   corporate_date_start = "",
   corporate_date_end = "",
   Variation = "",
@@ -64,16 +70,31 @@ tab_2 <- data.frame(
 fill_cell <- function(compte,filter,name){
   values <- compte %>%
     filter(date == as.Date(filter))
-  # Récupérer l'indice de la ligne 'compte_courant'
-  indice_ligne <- which(tab$`encours_ressources` == name)
   ################# i make the sum of retail and corporate banking
-  amount <- values$retail_banking[1] + values$corporate_banking[1]
+  amount <- values$retail_banking + values$corporate_banking
   return(amount)
 }
+
+fill_cell_retail <-function(compte,filter,name){
+  values <- compte %>%
+    filter(date == as.Date(filter))
+  amount <- values$retail_banking
+  return(amount)
+}
+
+fill_cell_corporate <- function(compte,filter,name) {
+  values <- compte %>%
+    filter(date == as.Date(filter))
+  amount <- values$corporate_banking
+  return(amount)
+}
+
 ########## Call first table
 source("./modules/table_modules/global_situation_tab_1.R")
 ########## Call second table
 source("./modules/table_modules/global_situation_tab_2.R")
+source("./modules/table_modules/global_situation_tab_3.R")
+
 
 
 #Pour se deconnecter 

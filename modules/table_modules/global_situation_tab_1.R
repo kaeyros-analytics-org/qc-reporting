@@ -9,7 +9,7 @@ global_situation_tab_1 <- shiny::reactive({
   tab$first_date[which(tab$`encours_ressources` == "Compte bloquées")] <- compte_bloquee_amount
   
   ############### compte_cheques #######################
-  compte_cheques_amount <- fill_cell(reactives$compte_bloquee(),filterStates$first_date,"Compte chèques")
+  compte_cheques_amount <- fill_cell(reactives$compte_cheques(),filterStates$first_date,"Compte chèques")
   tab$first_date[which(tab$`encours_ressources` == "Compte chèques")] <- compte_cheques_amount
   
   ############### compte_livrets #############################
@@ -77,7 +77,7 @@ global_situation_tab_1 <- shiny::reactive({
   tab$date_start[which(tab$`encours_ressources` == "Compte bloquées")] <- compte_bloquee_amount2
   
   ############### compte_cheques #######################
-  compte_cheques_amount2 <- fill_cell(reactives$compte_bloquee(),filterStates$date_start,"Compte chèques")
+  compte_cheques_amount2 <- fill_cell(reactives$compte_cheques(),filterStates$date_start,"Compte chèques")
   tab$date_start[which(tab$`encours_ressources` == "Compte chèques")] <- compte_cheques_amount2
   
   ############### compte_livrets #############################
@@ -145,7 +145,7 @@ global_situation_tab_1 <- shiny::reactive({
   tab$date_end[which(tab$`encours_ressources` == "Compte bloquées")] <- compte_bloquee_amount3
   
   ############### compte_cheques #######################
-  compte_cheques_amount3 <- fill_cell(reactives$compte_bloquee(),filterStates$date_end,"Compte chèques")
+  compte_cheques_amount3 <- fill_cell(reactives$compte_cheques(),filterStates$date_end,"Compte chèques")
   tab$date_end[which(tab$`encours_ressources` == "Compte chèques")] <- compte_cheques_amount3
   
   ############### compte_livrets #############################

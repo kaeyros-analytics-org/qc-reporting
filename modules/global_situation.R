@@ -23,18 +23,23 @@ global_situation_ui <- function(id){
             )
             ),
           div(class="col-lg-6 pl-1 pr-0", id = "linechart",
-            plotlyOutput(ns("plot_1"), width = "100px", height = "500px")
+            plotlyOutput(ns("plot_1"), width = "600px", height = "500px")
           )
         ),
         tags$br(),
         div(style="display: flex; font-weight: bold;",
-            div(style="margin-left:300px",
+            div(style="margin-left:500px;",
                 HTML("Retail banking")),
-            div(style="margin-left:500px",
+            div(style="margin-left:300px;",
                 HTML("Corporate banking"))
             ),
         tags$br(),
-        reactableOutput(ns("global_situation_tab_2"))
+        div(style="display:flex; justify-content: center;",
+            reactableOutput(ns("global_situation_tab_2")),
+            div(style = "margin-left: 20px;",
+                reactableOutput(ns("global_situation_tab_3")))
+          )
+       
     )
   )
   
@@ -79,27 +84,46 @@ global_situation_server <- function(input, output, session){
   
   
   output$plot_1 <- renderPlotly({
-    stock <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
-    
-    fig <- plot_ly(stock, type = 'scatter', mode = 'lines', line = list(color = "#0083E3"))%>%
-      add_trace(x = ~Date, y = ~AAPL.High, marker = list(color = "#0283A3"))%>%
-      layout(showlegend = T)
-    fig <- fig %>%
-      layout(
-        xaxis = list(zerolinecolor = '#0083E3',
-                     zerolinewidth = 1,
-                     gridcolor = '#D9D9D9'),
-        yaxis = list(zerolinecolor = '#0083E3',
-                     zerolinewidth = 1,
-                     gridcolor = '#D9D9D9'),
-        plot_bgcolor='#fff', width = 650)
-    
-    
-    fig
+    plot_ly(data=compte_courant, x=~date,  y = ~Amount,
+            type = 'scatter', mode = 'lines+markers')
   })
   
   output$global_situation_tab_2 <- renderReactable({
     reactable(global_situation_tab_2(), resizable = TRUE, selection = "single", #searchable = TRUE,
+              onClick = "select", pagination = FALSE, 
+              #searchable = TRUE,
+              wrap = FALSE,
+              striped = FALSE,
+              highlight = FALSE,
+              bordered = TRUE,
+              defaultColDef = colDef(
+                header = function(value) gsub(".", " ", value, fixed = TRUE),
+                align = "right",
+                headerStyle = list(background = "#f0f5f9")
+              ),
+              theme = reactableTheme(
+                stripedColor = "#f6f8fa",
+                highlightColor = "#5547AC",
+                cellPadding = "8px 12px",
+                style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI,
+          Helvetica, Arial, sans-serif"),
+                searchInputStyle = list(width = "100%"),
+                headerStyle = list(
+                  "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+                  "&[aria-sort='ascending'], &[aria-sort='descending']"
+                  = list(background = "hsl(0, 0%, 96%)"),
+                  borderColor = "grey"
+                ),
+                rowSelectedStyle = list(backgroundColor = "#3392c5",
+                                        boxShadow = "inset 2px 0 0 0 #ffa62d")
+                
+              )
+              
+    ) # End Reactable
+  })
+  
+  output$global_situation_tab_3 <- renderReactable({
+    reactable(global_situation_tab_3(), resizable = TRUE, selection = "single", #searchable = TRUE,
               onClick = "select", pagination = FALSE, 
               #searchable = TRUE,
               wrap = FALSE,
