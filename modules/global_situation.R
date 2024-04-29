@@ -20,7 +20,7 @@ global_situation_ui <- function(id){
                                         height:45px; color: #fff; font-weight: bold;width:50px")),
               ActionButton.shinyInput("edit", "Edit", style = "background-color: #3392c5;
                            height:45px; color: #fff; font-weight: bold;width:50px")
-            )
+              )
             ),
           div(class="col-lg-6 pl-1 pr-0", id = "linechart",
             plotlyOutput(ns("plot_1"), width = "600px", height = "500px")
@@ -34,10 +34,9 @@ global_situation_ui <- function(id){
                 HTML("Corporate banking"))
             ),
         tags$br(),
-        div(style="display:flex; justify-content: center;",
+        div(style="display:flex; justify-content: space-evenly;",
             reactableOutput(ns("global_situation_tab_2")),
-            div(style = "margin-left: 20px;",
-                reactableOutput(ns("global_situation_tab_3")))
+            reactableOutput(ns("global_situation_tab_3"))
           )
        
     )
@@ -97,8 +96,9 @@ global_situation_server <- function(input, output, session){
               highlight = FALSE,
               bordered = TRUE,
               defaultColDef = colDef(
-                header = function(value) gsub(".", " ", value, fixed = TRUE),
-                align = "right",
+                header = function(value) gsub("_", " ", value, fixed = TRUE),
+                align = "left",
+                minWidth = 200,
                 headerStyle = list(background = "#f0f5f9")
               ),
               theme = reactableTheme(

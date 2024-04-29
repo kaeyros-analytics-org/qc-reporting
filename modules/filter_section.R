@@ -54,7 +54,7 @@ filterStatesRouter_server <- function(input, output, session, filterStates) {
       ################## Date filter
       output$dateRange <- renderUI({
         tagList(
-          div(class="sidebar-header", tags$a("Choose date range: ")),
+          div(class="sidebar-header", tags$a("Choisir l'écart de date: ")),
           backendTooltip(span(`data-toggle`="tooltip",
                               `data-placement`="right",
                               `data-html` = "true",

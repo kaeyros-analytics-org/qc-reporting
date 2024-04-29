@@ -1,7 +1,7 @@
+
 # Define server logic ----
 server <- function(input, output, session) {
-  ns <- session$ns
-
+ 
   ### Login logic server
   res_auth <- shinymanager::secure_server(
     check_credentials = shinymanager::check_credentials(
@@ -9,22 +9,21 @@ server <- function(input, output, session) {
       #passphrase = keyring::key_get("R-shinymanager-key", "datacatalogapp")
       passphrase = "passphrase_wihtout_keyring"
     ), keep_token = FALSE) #keep_token = TRUE
-  
+
   data_connexion <- reactive({
     reactiveValuesToList(res_auth)
   })
-  
   ################### This code change the Tab Head Layout
-  Sys.sleep(1.5)
-    
-    observeEvent(input$datasetNav,
-    {
-      filterStates$allDataset <- input$allNav
-      filterStates$dataNavi$dataset <- input$datasetNav
-    })
+  #Sys.sleep(1.5)
+  
+  observeEvent(input$datasetNav,
+               {
+                 filterStates$allDataset <- input$allNav
+                 filterStates$dataNavi$dataset <- input$datasetNav
+               })
   
   ######### Set the first active page Layout
-  callModule(mainContentRouter_server, id = ns("mainContentRouter"), filterStates = filterStates)
+  callModule(mainContentRouter_server, id = "mainContentRouter", filterStates = filterStates)
   
   ########## Call filter server module
   callModule(filterStatesRouter_server, id = "filterStates", filterStates = filterStates)
@@ -52,7 +51,7 @@ server <- function(input, output, session) {
   })
   
   #reactive input for comment
-  text1 <- eventReactive(input$save,{
+  text_global_situation_tab_1 <- eventReactive(input$save,{
     if(is.null(input$text_global_situation_tab_1)) {
       return(" ")
     } else {
@@ -87,39 +86,16 @@ server <- function(input, output, session) {
     }
   })
   
-  tab4 <- reactive({
-    data <- global_situation_tab_3()
-    col_names <- c(names(data))
-    nb <- length(col_names)
-    for (i in 1:nb) {
-      col_names[i] <- paste0(col_names[i], paste0(rep(" ", i), collapse = ""), collapse = "")
-    }
-    colnames(data) <- col_names
-    data
-  })
-  
-  f <- reactive({
-    final <- cbind(global_situation_tab_2(),tab4())
-    final_ <- flextable(
-    data = final,
-    col_keys = c(names(final)[1:4],"col1",names(final)[5:7])) |>
-    #width(j = "col1", width = .2) |>
-    empty_blanks(width = 100)
-    final_ <- width(final_, j = "col1", width = 2)
-    final_ <- align(final_, align = "right", part = "all")
-    final_<- bg(final_, i=c(11,15),bg = "#D3D3D3")
-    final_<- bg(final_, i=16,bg = "#808080")
-    final_<- bg(final_, bg = "#808080", part = "header")
-    })
-
   ################ Download report button
   output$download_report <- downloadHandler(
     filename = function() {
       paste0("QC_Report_", Sys.Date(), ".docx", sep = "")
     },
     content = function(file) {
-      doc <- generate_report(global_situation_tab_1(),f(),text1())
+      doc <- generate_report(global_situation_tab_1(),final_second_tab(),text_global_situation_tab_1())
       print(doc, target = file)
     }
   )
+  
+
 }

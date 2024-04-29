@@ -5,24 +5,20 @@ setClickedId <- function(inputId) {
 }
 
 mainContentRouter_ui <- function(id) {
-
+  
   ns <- NS(id)
-  fluentPage(withSpinner(uiOutput(ns("mainContent")),
-                         type = 8,
-                         color = 'grey', size = 0.7))
-
-  # out <- withSpinner(uiOutput(ns("mainContent")),
-  #                    type = 8,
-  #                    color = 'grey', size = 0.7)
-
-  #return(out)
-
+  fluentPage(
+    uiOutput(ns("mainContent"))
+  )
+  # fluentPage(withSpinner(uiOutput(ns("mainContent")),
+  #                        type = 8,
+  #                        color = 'grey', size = 0.7))
 }
 
 mainContentRouter_server <- function(input, output, session, filterStates) {
   ############# This UI is for ressources Layout Page
   ui_ressouces = Pivot(linkFormat = "tabs",
-                       onLinkClick = setClickedId(session$ns("ressources_tabs")),#session$ns(
+                       onLinkClick = setClickedId(session$ns("ressources_tabs")),
                        PivotItem(id = "global_situation", headerText = "Situation Globale", global_situation_ui(session$ns("situation"))),
                        PivotItem(id = "network_situation", headerText = "Situation Par réseau", network_situation_ui(session$ns("network"))),
                        PivotItem(id = "enter_relation", headerText = "Entrées en relation", enter_relation_ui(session$ns("relation"))),
@@ -77,6 +73,10 @@ mainContentRouter_server <- function(input, output, session, filterStates) {
   observeEvent(input$ressources_tabs, {
     print("ok")
     cat(" dans ressources Vous avez cliqué sur le tabPanel avec l'ID :", input$ressources_tabs, "\n")
+  })
+  
+  output$txt <- renderText({
+    print("ALooooooooooooooo")
   })
   
   callModule(global_situation_server, id = "situation")

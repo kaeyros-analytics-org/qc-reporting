@@ -89,6 +89,33 @@ fill_cell_corporate <- function(compte,filter,name) {
   return(amount)
 }
 
+##############  rename colnames global_situation_tab_3
+tab4 <- reactive({
+  data <- global_situation_tab_3()
+  col_names <- c(names(data))
+  nb <- length(col_names)
+  for (i in 1:nb) {
+    col_names[i] <- paste0(col_names[i], paste0(rep(" ", i), collapse = ""), collapse = "")
+  }
+  colnames(data) <- col_names
+  data
+})
+
+######## Merge table global_situation_tab_2 and global_situation_tab_3
+final_second_tab <- reactive({
+  final <- cbind(global_situation_tab_2(),tab4())
+  final_ <- flextable(
+    data = final,
+    col_keys = c(names(final)[1:4],"col1",names(final)[5:7])) |>
+    #width(j = "col1", width = .2) |>
+    empty_blanks(width = 100)
+  final_ <- width(final_, j = "col1", width = 2)
+  final_ <- align(final_, align = "right", part = "all")
+  final_<- bg(final_, i=c(11,15),bg = "#D3D3D3")
+  final_<- bg(final_, i=16,bg = "#808080")
+  final_<- bg(final_, bg = "#808080", part = "header")
+})
+
 ########## Call first table
 source("./modules/table_modules/global_situation_tab_1.R")
 ########## Call second table

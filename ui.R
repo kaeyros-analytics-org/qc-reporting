@@ -21,33 +21,44 @@
 # )
 
 
+
+#Change labels
+shinymanager::set_labels(
+  language = c("en"),
+  "Please authenticate" = "Login"
+)
+
+
+# ui <- function(id){
+#   uiOutput("ui")
+# }
+
 ui <- function(id){
+      shiny::htmlTemplate("www/index.html",
   
-  htmlTemplate("www/index.html",
-               
-               ############## Content of sideBar navigation
-               sidebarNavigation = 
-                 tagList(
-                   introjsUI(),
-                   useShinyjs(),
-                   filterStatesRouter_ui("filterStates")
+                 ############## Content of sideBar navigation
+                 sidebarNavigation =
+                   tagList(
+                     introjsUI(),
+                     useShinyjs(),
+                     filterStatesRouter_ui("filterStates")
+                   ),
+                 ################## Content of Header Navigation
+                 headerNav = htmlTemplate("./www/htmlComponents/headerNav.html",
+                                          formModal = headerFormModal_ui(id = "formModal"),
+                                          feedbackModal = headerFeedbackModal_ui(id = "feedbackModal"),
+                                          methodsModal = headerMethodsModal_ui(id = "methodsModal"),
+                                          dataModal = headerDataModal_ui(id = "data"),
+                                          walkthrough = headerWalkthrough_ui(id = "walkthrough")
                  ),
-               
-               ################## Content of Header Navigation
-               headerNav = htmlTemplate("./www/htmlComponents/headerNav.html",
-                                        formModal = headerFormModal_ui(id = "formModal"),
-                                        feedbackModal = headerFeedbackModal_ui(id = "feedbackModal"),
-                                        methodsModal = headerMethodsModal_ui(id = "methodsModal"),
-                                        dataModal = headerDataModal_ui(id = "data"),
-                                        walkthrough = headerWalkthrough_ui(id = "walkthrough")
-               ),
-               ################# Content of Body display
-               contentSection = mainContentRouter_ui("mainContentRouter")
-               
-  )
+                 ################# Content of Body display
+                 contentSection = mainContentRouter_ui("mainContentRouter")
+      )
+  
 }
+
 # ui <- shinymanager::secure_app(ui,
-#                                tags_top = 
+#                                tags_top =
 #                                  tags$div(
 #                                    tags$head(
 #                                      tags$link(rel = "stylesheet", type="text/css", href ="css/login.css"),
@@ -64,8 +75,5 @@ ui <- function(id){
 #                                  )
 #                                ),
 #                                enable_admin = TRUE, choose_language = FALSE, fab_position = "bottom-right")
-
-
-
 
 
